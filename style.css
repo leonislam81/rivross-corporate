@@ -1,0 +1,275 @@
+/*
+Theme Name: RIVROSS Corporate
+Theme URI: https://rivross.com
+Author: RIVROSS Company Limited
+Author URI: https://rivross.com
+Description: A premium responsive corporate WordPress theme for RIVROSS Company Limited, with editable business, property, project, events, leadership and careers content.
+Requires at least: 6.0
+Requires PHP: 7.4
+Tested up to: 7.1
+Version: 1.0.25
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tags: accessibility-ready, business, corporate, custom-logo, custom-menu, editor-style, featured-images, full-width-template, real-estate, responsive-layout, theme-options, translation-ready
+Text Domain: rivross-corporate
+Domain Path: /languages
+*/
+
+:root {
+  --rivross-color-navy: #061a36;
+  --rivross-color-navy-2: #0b2a4a;
+  --rivross-color-gold: #c9962d;
+  --rivross-color-gold-light: #e8c06a;
+  --rivross-color-ink: #17243a;
+  --rivross-color-muted: #68758a;
+  --rivross-color-surface: #f7f8fa;
+  --rivross-color-white: #ffffff;
+  --rivross-color-line: #dce2ea;
+  --rivross-font-body: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --rivross-font-display: "Cormorant Garamond", Georgia, serif;
+  --rivross-size-body: 16px;
+  --rivross-line-body: 1.65;
+  --rivross-size-nav: 11px;
+  --rivross-size-button: 12px;
+  --rivross-size-eyebrow: 12px;
+  --rivross-size-h1: 77px;
+  --rivross-size-h2: 56px;
+  --rivross-size-h3: 38px;
+  --rivross-size-card: 20px;
+  --rivross-size-hero: 64px;
+  --rivross-size-small: 12px;
+  --rivross-content-width: 1180px;
+  --rivross-wide-width: 1320px;
+  --rivross-radius-sm: 3px;
+  --rivross-radius-md: 6px;
+  --rivross-shadow-soft: 0 12px 36px rgba(6, 26, 54, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  color: var(--rivross-color-ink);
+  background: var(--rivross-color-white);
+  font-family: var(--rivross-font-body);
+  font-size: var(--rivross-size-body);
+  line-height: var(--rivross-line-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+video,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+iframe {
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-180%);
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--rivross-radius-sm);
+  background: var(--rivross-color-gold);
+  color: var(--rivross-color-navy);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--rivross-color-navy);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.65em;
+  color: var(--rivross-color-navy);
+  font-family: var(--rivross-font-display);
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+h1 { font-size: clamp(2.65rem, 5vw, var(--rivross-size-h1)); }
+h2 { font-size: clamp(2.2rem, 4vw, var(--rivross-size-h2)); }
+h3 { font-size: clamp(1.65rem, 2.6vw, var(--rivross-size-h3)); }
+h4 { font-size: 1.45rem; }
+
+p { margin: 0 0 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.rivross-page-shell {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  background: var(--rivross-color-surface);
+}
+
+.rivross-page {
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.rivross-page__header {
+  margin-bottom: 2rem;
+}
+
+.rivross-page__header h1 {
+  margin-bottom: 0;
+}
+
+.rivross-page__content {
+  color: var(--rivross-color-muted);
+}
+
+.rivross-page__content > :last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--rivross-color-gold);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--rivross-color-navy);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.rivross-container {
+  width: min(100% - 3rem, var(--rivross-content-width));
+  margin-inline: auto;
+}
+
+.rivross-container--wide {
+  width: min(100% - 3rem, var(--rivross-wide-width));
+}
+
+.rivross-eyebrow {
+  color: var(--rivross-color-gold);
+  font-size: var(--rivross-size-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.rivross-button {
+  display: inline-flex;
+  box-sizing: border-box;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border: 1px solid var(--rivross-color-gold);
+  border-radius: var(--rivross-radius-sm);
+  padding: 0.55rem 1.05rem;
+  background: var(--rivross-color-gold);
+  color: var(--rivross-color-navy);
+  font-size: var(--rivross-size-button);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  white-space: nowrap;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.rivross-button:hover,
+.rivross-button:focus-visible {
+  border-color: var(--rivross-color-gold-light);
+  background: var(--rivross-color-gold-light);
+  color: var(--rivross-color-navy);
+  transform: translateY(-1px);
+}
+
+.rivross-button--outline {
+  background: transparent;
+  color: var(--rivross-color-white);
+}
+
+.rivross-button--outline:hover,
+.rivross-button--outline:focus-visible {
+  background: var(--rivross-color-gold);
+  color: var(--rivross-color-navy);
+}
+
+.rivross-button .rivross-icon {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+.rivross-leader-socials { display: flex; width: 100%; align-items: center; justify-content: center; gap: 0.5rem; }
+.rivross-leader-social {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid rgba(201, 150, 45, 0.72);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--rivross-color-gold-light);
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.rivross-leader-social:hover,
+.rivross-leader-social:focus-visible {
+  border-color: var(--rivross-color-gold-light);
+  background: var(--rivross-color-gold);
+  color: var(--rivross-color-navy);
+  box-shadow: 0 5px 12px rgba(6, 26, 54, 0.18);
+  transform: translateY(-2px);
+}
+.rivross-leader-social:focus-visible { outline: 2px solid var(--rivross-color-gold); outline-offset: 2px; }
+.rivross-leader-social .rivross-icon { display: block; width: 15px; height: 15px; }
+
+@media (max-width: 782px) {
+  .rivross-container,
+  .rivross-container--wide { width: min(100% - 2rem, var(--rivross-content-width)); }
+
+  .rivross-button {
+    min-height: 42px;
+    padding: 0.5rem 0.9rem;
+    font-size: var(--rivross-size-button);
+  }
+}

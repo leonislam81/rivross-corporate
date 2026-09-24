@@ -1,0 +1,27 @@
+/* Legal pages */
+.legal-page { background: var(--rivross-color-surface, #f7f8fa); }
+.legal-hero { position: relative; overflow: hidden; background: linear-gradient(115deg, #061a36 0%, #0a2a4a 62%, #123a5e 100%); color: #fff; }
+.legal-hero::after { content: ''; position: absolute; width: 28rem; height: 28rem; right: -9rem; top: -14rem; border: 1px solid rgba(201, 150, 45, 0.48); transform: rotate(45deg); }
+.legal-hero__inner { position: relative; z-index: 1; padding-block: clamp(3.5rem, 8vw, 6.2rem); }
+.legal-breadcrumb { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 2.1rem; color: rgba(255,255,255,0.72); font-size: 0.76rem; }
+.legal-breadcrumb a { color: var(--rivross-color-gold-light, #e0a529); }
+.legal-hero__copy { max-width: 44rem; }
+.legal-hero__copy .rivross-eyebrow { color: var(--rivross-color-gold-light, #e0a529); }
+.legal-hero h1 { margin: 0.55rem 0 0; color: #fff; font-family: var(--rivross-font-heading, Georgia, serif); font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 0.98; }
+.legal-hero__rule { display: block; width: 4rem; height: 2px; margin: 1.35rem 0 1.1rem; background: var(--rivross-color-gold-light, #e0a529); }
+.legal-hero__copy p { max-width: 36rem; margin: 0; color: rgba(255,255,255,0.82); font-size: 1rem; line-height: 1.75; }
+.legal-content { padding-block: clamp(2.5rem, 6vw, 5rem); }
+.legal-content__card { border: 1px solid #e4e7ec; border-radius: var(--rivross-radius-md, 0.5rem); background: #fff; box-shadow: 0 12px 35px rgba(6, 26, 54, 0.06); }
+.legal-content__updated { padding: 1.25rem clamp(1.25rem, 4vw, 3rem); border-bottom: 1px solid #edf0f4; color: #718096; font-size: 0.78rem; }
+.legal-content__body { padding: clamp(1.4rem, 4vw, 3rem); color: #334155; font-size: 0.96rem; line-height: 1.8; }
+.legal-content__body h2 { margin: 1.8rem 0 0.55rem; color: var(--rivross-color-navy, #061a36); font-family: var(--rivross-font-heading, Georgia, serif); font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.2; }
+.legal-content__body h2:first-child { margin-top: 0; }
+.legal-content__body p { margin: 0 0 1rem; }
+.legal-content__body a { color: #b37a0b; text-decoration: underline; text-underline-offset: 2px; }
+
+@media (max-width: 640px) {
+	.legal-hero__inner { padding-block: 3rem 3.5rem; }
+	.legal-hero__copy p { font-size: 0.9rem; }
+	.legal-content__body { font-size: 0.9rem; }
+}
+

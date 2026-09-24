@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wpml-config>
+	<custom-types>
+		<custom-type translate="1">rivross_hero_slide</custom-type>
+		<custom-type translate="1">rivross_property</custom-type>
+		<custom-type translate="1">rivross_project</custom-type>
+		<custom-type translate="1">rivross_event</custom-type>
+		<custom-type translate="1">rivross_job</custom-type>
+		<custom-type translate="1">rivross_leader</custom-type>
+	</custom-types>
+	<taxonomies>
+		<taxonomy translate="1">rivross_property_type</taxonomy>
+		<taxonomy translate="1">rivross_project_type</taxonomy>
+		<taxonomy translate="1">rivross_event_category</taxonomy>
+		<taxonomy translate="1">rivross_job_department</taxonomy>
+	</taxonomies>
+	<admin-texts>
+		<key name="theme_mods_rivross-corporate">
+			<key name="*" />
+		</key>
+	</admin-texts>
+	<custom-fields>
+		<custom-field action="translate">_rivross_hero_kicker</custom-field>
+		<custom-field action="translate">_rivross_hero_line_1</custom-field>
+		<custom-field action="translate">_rivross_hero_line_2</custom-field>
+		<custom-field action="translate">_rivross_hero_description</custom-field>
+		<custom-field action="translate">_rivross_hero_primary_label</custom-field>
+		<custom-field action="translate">_rivross_hero_secondary_label</custom-field>
+		<custom-field action="translate">_rivross_job_department</custom-field>
+		<custom-field action="translate">_rivross_job_employment_type</custom-field>
+		<custom-field action="translate">_rivross_job_location</custom-field>
+		<custom-field action="translate">_rivross_job_experience</custom-field>
+		<custom-field action="translate">_rivross_job_work_mode</custom-field>
+		<custom-field action="translate">_rivross_job_responsibilities</custom-field>
+		<custom-field action="translate">_rivross_job_requirements</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_1_title</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_1_description</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_2_title</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_2_description</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_3_title</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_3_description</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_4_title</custom-field>
+		<custom-field action="translate">_rivross_job_benefit_4_description</custom-field>
+		<custom-field action="translate">_rivross_event_time</custom-field>
+		<custom-field action="translate">_rivross_event_location</custom-field>
+		<custom-field action="translate">_rivross_event_mode</custom-field>
+		<custom-field action="translate">_rivross_event_status</custom-field>
+		<custom-field action="translate">_rivross_event_language</custom-field>
+		<custom-field action="translate">_rivross_event_dress_code</custom-field>
+		<custom-field action="translate">_rivross_event_agenda_1_title</custom-field>
+		<custom-field action="translate">_rivross_event_agenda_1_description</custom-field>
+		<custom-field action="translate">_rivross_event_agenda_2_title</custom-field>
+		<custom-field action="translate">_rivross_event_agenda_2_description</custom-field>
+		<custom-field action="translate">_rivross_event_agenda_3_title</custom-field>
+		<custom-field action="translate">_rivross_event_agenda_3_description</custom-field>
+		<custom-field action="translate">_rivross_project_description</custom-field>
+		<custom-field action="translate">_rivross_property_description</custom-field>
+		<custom-field action="translate">_rivross_news_author</custom-field>
+		<custom-field action="translate">_rivross_news_intro</custom-field>
+		<custom-field action="translate">_rivross_news_subheading</custom-field>
+		<custom-field action="translate">_rivross_news_callout</custom-field>
+		<custom-field action="translate">_rivross_news_trend_1_title</custom-field>
+		<custom-field action="translate">_rivross_news_trend_1_description</custom-field>
+		<custom-field action="translate">_rivross_news_trend_2_title</custom-field>
+		<custom-field action="translate">_rivross_news_trend_2_description</custom-field>
+		<custom-field action="translate">_rivross_news_trend_3_title</custom-field>
+		<custom-field action="translate">_rivross_news_trend_3_description</custom-field>
+		<custom-field action="translate">_rivross_property_developer</custom-field>
+		<custom-field action="translate">_rivross_property_type</custom-field>
+		<custom-field action="translate">_rivross_property_size</custom-field>
+		<custom-field action="translate">_rivross_property_bedrooms</custom-field>
+		<custom-field action="translate">_rivross_property_bathrooms</custom-field>
+		<custom-field action="translate">_rivross_property_parking</custom-field>
+		<custom-field action="translate">_rivross_property_status</custom-field>
+		<custom-field action="translate">_rivross_property_price</custom-field>
+		<custom-field action="translate">_rivross_property_handover</custom-field>
+		<custom-field action="translate">_rivross_project_developer</custom-field>
+		<custom-field action="translate">_rivross_project_type</custom-field>
+		<custom-field action="translate">_rivross_project_size</custom-field>
+		<custom-field action="translate">_rivross_project_bedrooms</custom-field>
+		<custom-field action="translate">_rivross_project_parking</custom-field>
+		<custom-field action="translate">_rivross_project_status</custom-field>
+		<custom-field action="translate">_rivross_project_price</custom-field>
+		<custom-field action="translate">_rivross_project_timeline</custom-field>
+		<custom-field action="copy">_rivross_hero_image</custom-field>
+		<custom-field action="copy">_rivross_hero_primary_url</custom-field>
+		<custom-field action="copy">_rivross_hero_secondary_url</custom-field>
+		<custom-field action="copy">_rivross_hero_order</custom-field>
+		<custom-field action="copy">_rivross_hero_active</custom-field>
+		<custom-field action="copy">_rivross_job_hero_image</custom-field>
+		<custom-field action="copy">_rivross_job_application_shortcode</custom-field>
+		<custom-field action="copy">_rivross_job_application_email</custom-field>
+		<custom-field action="copy">_rivross_job_deadline</custom-field>
+		<custom-field action="copy">_rivross_job_job_code</custom-field>
+		<custom-field action="copy">_rivross_event_start_date</custom-field>
+		<custom-field action="copy">_rivross_event_end_date</custom-field>
+		<custom-field action="copy">_rivross_event_contact_email</custom-field>
+		<custom-field action="copy">_rivross_event_icon</custom-field>
+		<custom-field action="copy">_rivross_event_agenda_1_time</custom-field>
+		<custom-field action="copy">_rivross_event_agenda_1_icon</custom-field>
+		<custom-field action="copy">_rivross_event_agenda_2_time</custom-field>
+		<custom-field action="copy">_rivross_event_agenda_2_icon</custom-field>
+		<custom-field action="copy">_rivross_event_agenda_3_time</custom-field>
+		<custom-field action="copy">_rivross_event_agenda_3_icon</custom-field>
+		<custom-field action="copy">_rivross_event_register_url</custom-field>
+		<custom-field action="copy">_rivross_event_details_url</custom-field>
+		<custom-field action="copy">_rivross_leader_image</custom-field>
+		<custom-field action="copy">_rivross_leader_linkedin</custom-field>
+		<custom-field action="copy">_rivross_leader_facebook</custom-field>
+		<custom-field action="copy">_rivross_leader_email</custom-field>
+		<custom-field action="copy">_rivross_leader_whatsapp</custom-field>
+		<custom-field action="copy">_rivross_leader_order</custom-field>
+		<custom-field action="copy">_rivross_leader_home</custom-field>
+		<custom-field action="copy">_rivross_leader_about</custom-field>
+		<custom-field action="copy">_rivross_leader_management</custom-field>
+		<custom-field action="copy">_rivross_job_benefit_1_icon</custom-field>
+		<custom-field action="copy">_rivross_job_benefit_2_icon</custom-field>
+		<custom-field action="copy">_rivross_job_benefit_3_icon</custom-field>
+		<custom-field action="copy">_rivross_job_benefit_4_icon</custom-field>
+		<custom-field action="copy">_rivross_project_gallery</custom-field>
+		<custom-field action="copy">_rivross_project_image</custom-field>
+		<custom-field action="copy">_rivross_project_map_url</custom-field>
+		<custom-field action="copy">_rivross_project_brochure_url</custom-field>
+		<custom-field action="copy">_rivross_project_inquiry_url</custom-field>
+		<custom-field action="copy">_rivross_property_gallery</custom-field>
+		<custom-field action="copy">_rivross_property_image</custom-field>
+		<custom-field action="copy">_rivross_property_price_value</custom-field>
+		<custom-field action="copy">_rivross_property_map_url</custom-field>
+		<custom-field action="copy">_rivross_property_brochure_url</custom-field>
+		<custom-field action="copy">_rivross_property_inquiry_url</custom-field>
+	</custom-fields>
+</wpml-config>

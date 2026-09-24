@@ -1,0 +1,52 @@
+/* The hero banners use photographic backgrounds and gradients only. */
+.about-hero::after,
+.companies-hero::after,
+.contact-hero::after,
+.event-single-hero::after,
+.events-hero::after,
+.news-single-hero::after,
+.news-hero::after,
+.management-hero::after,
+.career-job-hero::after,
+.careers-hero::after,
+.projects-hero::after,
+.property-hero::after,
+.legal-hero::after,
+.rivross-maintenance::after {
+	display: none !important;
+	content: none !important;
+}
+
+/* Keep responsive hero padding inside the banner height. */
+@media (max-width: 782px) {
+	.about-hero__inner,
+	.career-application-hero__inner,
+	.career-job-hero__inner,
+	.careers-hero__inner,
+	.companies-hero__inner,
+	.contact-hero__inner,
+	.event-single-hero__inner,
+	.events-hero__inner,
+	.home-hero__inner,
+	.legal-hero__inner,
+	.management-hero__inner,
+	.news-single-hero__inner,
+	.news-hero__inner,
+	.projects-hero__inner,
+	.property-hero__inner,
+	.tea-hero__inner,
+	.travel-hero__inner {
+		box-sizing: border-box;
+	}
+
+	.about-hero__inner,
+	.career-job-hero__inner,
+	.careers-hero__inner,
+	.contact-hero__inner,
+	.events-hero__inner,
+	.management-hero__inner,
+	.news-single-hero__inner,
+	.news-hero__inner {
+		justify-content: center !important;
+	}
+}

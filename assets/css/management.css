@@ -1,0 +1,73 @@
+/* Leadership / Management page */
+.management-hero { position: relative; min-height: 350px; overflow: hidden; background: var(--rivross-color-navy) var(--management-hero-image) right center / cover no-repeat; }
+.management-hero::before { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, #061a36 0%, #061a36 35%, rgba(6,26,54,.94) 50%, rgba(6,26,54,.56) 68%, rgba(6,26,54,.12) 100%); }
+.management-hero::after { position: absolute; inset: 0 auto 0 35%; width: 150px; content: ""; background: var(--rivross-color-gold); clip-path: polygon(57% 0, 68% 0, 32% 50%, 68% 100%, 57% 100%, 21% 50%); }
+.management-hero__inner { position: relative; z-index: 1; display: flex; min-height: 350px; flex-direction: column; justify-content: center; padding-block: 3rem; }
+.management-hero__breadcrumb { display: flex; gap: .7rem; align-items: center; margin-bottom: 1.3rem; color: rgba(255,255,255,.78); font-size: .75rem; }
+.management-hero__breadcrumb a { color: var(--rivross-color-gold-light); }
+.management-hero__breadcrumb span[aria-hidden="true"] { color: rgba(255,255,255,.45); }
+.management-hero__copy { max-width: 430px; }
+.management-hero h1 { margin: 0; color: var(--rivross-color-white); font-size: clamp(3rem, 5.2vw, 4.8rem); line-height: .9; }
+.management-hero h1 span, .management-hero h1 strong { display: block; }
+.management-hero h1 strong { color: var(--rivross-color-gold); }
+.management-rule { display: block; width: 66px; height: 2px; margin: 1.2rem 0; background: var(--rivross-color-gold); }
+.management-hero__copy p { max-width: 390px; margin: 0; color: rgba(255,255,255,.88); font-size: .9rem; line-height: 1.75; white-space: pre-line; }
+.management-section { padding-block: clamp(3.4rem, 6vw, 5.2rem); }
+.management-team { background: var(--rivross-color-white); }
+.management-section__heading { max-width: 760px; margin: 0 auto 2.25rem; text-align: center; }
+.management-section__heading h2 { margin: .35rem 0 .6rem; font-size: clamp(2.2rem, 4vw, 3.35rem); }
+.management-section__heading p { margin: 0 auto; color: var(--rivross-color-muted); font-size: .86rem; line-height: 1.75; white-space: pre-line; }
+.management-heading-rule { display: block; width: 66px; height: 2px; margin: 0 auto 1rem; background: var(--rivross-color-gold); }
+.management-team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.management-leader-card { overflow: hidden; border: 1px solid var(--rivross-color-line); border-radius: var(--rivross-radius-md); background: #fff; box-shadow: 0 8px 24px rgba(6,26,54,.035); }
+.management-leader-card__media { aspect-ratio: 1.26 / 1; overflow: hidden; background: #eef0f2; }
+.management-leader-card__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.management-leader-card__body { display: flex; min-height: 174px; flex-direction: column; padding: 1rem 1rem 1.05rem; }
+.management-leader-card h3 { margin: 0 0 .3rem; font-size: 1.18rem; }
+.management-leader-card__role { display: block; margin-bottom: .55rem; color: var(--rivross-color-gold); font-size: .72rem; font-weight: 700; }
+.management-leader-card p { min-height: 60px; margin: 0 0 .7rem; color: var(--rivross-color-muted); font-size: .7rem; line-height: 1.62; white-space: pre-line; }
+.management-leader-card__body .rivross-leader-socials { margin-top: auto; }
+.management-stats { padding-block: 1.55rem; background: var(--rivross-color-navy); color: #fff; }
+.management-stats__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.management-stat { display: flex; min-height: 80px; align-items: center; justify-content: center; gap: .85rem; padding: .6rem 1.3rem; border-right: 1px solid rgba(255,255,255,.2); text-align: left; }
+.management-stat:last-child { border-right: 0; }
+.management-stat__icon { display: grid; width: 45px; height: 45px; flex: 0 0 auto; place-items: center; color: var(--rivross-color-gold); }
+.management-stat__icon .rivross-icon { width: 2.2rem; height: 2.2rem; }
+.management-stat strong, .management-stat b, .management-stat small { display: block; }
+.management-stat strong { color: var(--rivross-color-gold-light); font-family: var(--rivross-font-display); font-size: 1.65rem; line-height: 1; }
+.management-stat b { margin-top: .2rem; color: #fff; font-size: .77rem; }
+.management-stat small { color: rgba(255,255,255,.7); font-size: .68rem; }
+.management-commitment { background: var(--rivross-color-surface); }
+.management-commitment__grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+.management-commitment__media { overflow: hidden; border-radius: var(--rivross-radius-md); box-shadow: var(--rivross-shadow-soft); }
+.management-commitment__media img { display: block; width: 100%; aspect-ratio: 1.3 / 1; object-fit: cover; }
+.management-commitment__copy h2 { max-width: 540px; margin: .35rem 0 .9rem; font-size: clamp(2.1rem, 4vw, 3.15rem); }
+.management-commitment__copy p { max-width: 575px; margin: 0 0 1.25rem; color: var(--rivross-color-muted); font-size: .86rem; line-height: 1.75; white-space: pre-line; }
+.management-page-cta { position: relative; overflow: hidden; background: var(--rivross-color-navy) var(--management-cta-image) center / cover no-repeat; color: #fff; }
+.management-page-cta::before { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(6,26,54,.97), rgba(6,26,54,.82)); }
+.management-page-cta__inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: center; padding-block: 2.3rem; }
+.management-page-cta h2 { margin: 0 0 .35rem; color: #fff; font-size: clamp(1.65rem, 3vw, 2.35rem); }
+.management-page-cta p { margin: 0; color: rgba(255,255,255,.8); font-size: .84rem; white-space: pre-line; }
+.management-page-cta__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .7rem; }
+
+@media (max-width: 1000px) { .management-team-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .management-stat { padding-inline: .8rem; } }
+@media (max-width: 782px) {
+  .management-hero, .management-hero__inner { min-height: 430px; }
+  .management-hero::before { background: linear-gradient(90deg, rgba(6,26,54,.98), rgba(6,26,54,.8) 65%, rgba(6,26,54,.42)); }
+  .management-hero::after { left: 58%; width: 100px; }
+  .management-hero__inner { justify-content: flex-end; padding-bottom: 3.2rem; }
+  .management-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .management-stats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .management-stat { justify-content: flex-start; border-bottom: 1px solid rgba(255,255,255,.2); }
+  .management-stat:nth-child(2) { border-right: 0; }
+  .management-stat:nth-last-child(-n+2) { border-bottom: 0; }
+  .management-commitment__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .management-page-cta__inner { grid-template-columns: 1fr; gap: 1.25rem; }
+  .management-page-cta__actions { justify-content: flex-start; }
+}
+@media (max-width: 520px) {
+  .management-team-grid, .management-stats__grid { grid-template-columns: 1fr; }
+  .management-stat, .management-stat:nth-child(2), .management-stat:nth-last-child(-n+2) { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.2); }
+  .management-stat:last-child { border-bottom: 0; }
+  .management-page-cta__actions .rivross-button { width: 100%; }
+}

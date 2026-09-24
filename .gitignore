@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.log
+*.zip
+.env
+.env.*
+!.env.example
+node_modules/
+vendor/
+coverage/

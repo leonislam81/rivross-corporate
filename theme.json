@@ -1,0 +1,88 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "1180px",
+      "wideSize": "1320px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        { "slug": "navy", "color": "#061a36", "name": "RIVROSS Navy" },
+        { "slug": "navy-2", "color": "#0b2a4a", "name": "RIVROSS Royal Navy" },
+        { "slug": "gold", "color": "#c9962d", "name": "RIVROSS Gold" },
+        { "slug": "gold-light", "color": "#e8c06a", "name": "RIVROSS Light Gold" },
+        { "slug": "ink", "color": "#17243a", "name": "RIVROSS Ink" },
+        { "slug": "muted", "color": "#68758a", "name": "RIVROSS Muted" },
+        { "slug": "surface", "color": "#f7f8fa", "name": "RIVROSS Surface" },
+        { "slug": "line", "color": "#dce2ea", "name": "RIVROSS Line" },
+        { "slug": "white", "color": "#ffffff", "name": "White" }
+      ],
+      "gradients": [
+        {
+          "slug": "navy-gold",
+          "gradient": "linear-gradient(135deg, #061a36 0%, #0b2a4a 68%, #c9962d 160%)",
+          "name": "Navy to Gold"
+        }
+      ]
+    },
+    "spacing": {
+      "blockGap": "1.5rem",
+      "spacingScale": {
+        "steps": 7
+      }
+    },
+    "typography": {
+      "dropCap": false,
+      "fontFamilies": [
+        {
+          "fontFamily": "Montserrat, Segoe UI, Arial, sans-serif",
+          "name": "Body Sans",
+          "slug": "body-sans"
+        },
+        {
+          "fontFamily": "Cormorant Garamond, Georgia, serif",
+          "name": "Display Serif",
+          "slug": "display-serif"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small", "size": "0.8125rem", "name": "Small" },
+        { "slug": "base", "size": "1rem", "name": "Base" },
+        { "slug": "medium", "size": "1.125rem", "name": "Medium" },
+        { "slug": "large", "size": "1.5rem", "name": "Large" },
+        { "slug": "x-large", "size": "2.25rem", "name": "Extra Large" },
+        { "slug": "display", "size": "clamp(2.65rem, 5vw, 4.8rem)", "name": "Display" }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#ffffff",
+      "text": "#17243a"
+    },
+    "spacing": {
+      "blockGap": "1.5rem"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--body-sans)",
+      "fontSize": "1rem",
+      "lineHeight": "1.65"
+    },
+    "elements": {
+      "heading": {
+        "color": { "text": "#061a36" },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--display-serif)",
+          "fontWeight": "700",
+          "lineHeight": "1.12"
+        }
+      },
+      "link": {
+        "color": { "text": "#c9962d" }
+      }
+    }
+  }
+}
