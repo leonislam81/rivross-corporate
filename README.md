@@ -8,7 +8,7 @@ Edit and test the theme in the local WordPress installation. Push changes to `ma
 
 1. Increment `Version` in `style.css` and `RIVROSS_THEME_VERSION` in `functions.php` to the same `X.Y.Z` value.
 2. Push the change to `main`.
-3. Create and publish a GitHub Release whose tag matches the theme version, for example `v1.0.27`.
+3. Create and publish a GitHub Release whose tag matches the theme version, for example `v1.0.28`.
 4. The release workflow checks the tag, builds a correctly structured `rivross-corporate.zip` plus the small updater plugin ZIP, and attaches both to the release.
 5. A connected live WordPress site shows the new version under Dashboard → Updates. An administrator can review and install it there.
 
