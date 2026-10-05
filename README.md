@@ -1,22 +1,25 @@
 # RIVROSS Corporate WordPress Theme
 
-This repository contains only the `rivross-corporate` WordPress theme. It does not contain WordPress core, the database, media uploads, or page content.
+This repository contains the `rivross-corporate` WordPress theme and the small `RIVROSS Theme Updates` bootstrap plugin. It does not contain WordPress core, the database, media uploads, or page content.
 
-## Local development
+## Local development and releases
 
-Edit the theme in the local WordPress installation, then commit and push changes to the `main` branch. A push will start the GitHub Actions deployment workflow once the production SSH secrets below have been configured.
+Edit and test the theme in the local WordPress installation. Push changes to `main`; a push does not modify the live site. When a change is ready for production:
 
-## Safe live deployment
+1. Increment `Version` in `style.css` and `RIVROSS_THEME_VERSION` in `functions.php` to the same `X.Y.Z` value.
+2. Push the change to `main`.
+3. Create and publish a GitHub Release whose tag matches the theme version, for example `v1.0.27`.
+4. The release workflow checks the tag, builds a correctly structured `rivross-corporate.zip` plus the small updater plugin ZIP, and attaches both to the release.
+5. A connected live WordPress site shows the new version under Dashboard → Updates. An administrator can review and install it there.
 
-The workflow copies theme files over SSH/rsync into the existing live theme directory. It does not connect to WordPress's database, overwrite site content, or use `rsync --delete`; files removed from Git are therefore not automatically removed from the server.
+The update package contains only theme files. WordPress content, uploads, and database records are not packaged or overwritten by the updater.
 
-Configure these GitHub Actions secrets for the `production` environment:
+## Connect the GitHub repository
 
-- `LIVE_SSH_HOST` — hosting SSH hostname
-- `LIVE_SSH_PORT` — SSH port, commonly `22`
-- `LIVE_SSH_USER` — SSH username
-- `LIVE_SSH_PRIVATE_KEY` — private key for a deploy account/key authorized by the hosting provider
-- `LIVE_SSH_KNOWN_HOSTS` — verified SSH host-key line(s) for that server
-- `LIVE_THEME_PATH` — absolute path to `wp-content/themes/rivross-corporate` on the server
+Install and activate the small `rivross-theme-updater.zip` plugin once from Plugins → Add New → Upload Plugin on the live site. Public repositories need no token. If the repository is private, open Settings → RIVROSS Theme Updates and save a GitHub fine-grained personal access token limited to this repository with **Contents: Read-only** permission. The optional token is stored as a non-autoloaded WordPress option and is never printed back into the page. Do not commit it to Git or send it in chat. A `RIVROSS_GITHUB_TOKEN` constant in `wp-config.php` may be used instead where server configuration access is available.
 
-The hosting provider must enable SSH access and provide the server path. cPanel is not required, but GitHub cannot deploy without a working SSH account/key and the exact theme path. Never commit private keys or passwords to this repository.
+The updater checks the latest published stable release and supports WordPress 6.0 or later. The theme's `Update URI` header prevents WordPress.org from treating this theme as a directory theme on WordPress 6.1 and later.
+
+## One-time live bootstrap
+
+The live site needs the updater plugin once before it can display GitHub theme updates. Upload and activate the small plugin ZIP; this does not replace the theme or affect site content. For a public repository, no token setup is required. The plugin can offer theme releases through Dashboard → Updates. The theme ZIP is downloaded server-to-server during an update, so the browser upload limit does not apply to future releases.
