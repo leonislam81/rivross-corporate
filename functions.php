@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RIVROSS_THEME_VERSION', '1.0.28' );
+define( 'RIVROSS_THEME_VERSION', '1.0.29' );
 
 require_once get_template_directory() . '/inc/partner-logos.php';
 require_once get_template_directory() . '/inc/customizer.php';
