@@ -6,11 +6,10 @@ This repository contains the `rivross-corporate` WordPress theme and the small `
 
 Edit and test the theme in the local WordPress installation. Push changes to `main`; a push does not modify the live site. When a change is ready for production:
 
-1. Increment `Version` in `style.css` and `RIVROSS_THEME_VERSION` in `functions.php` to the same `X.Y.Z` value.
+1. Increment `Version` in `style.css` and `RIVROSS_THEME_VERSION` in `functions.php` to the same, newer `X.Y.Z` value.
 2. Push the change to `main`.
-3. Create and publish a GitHub Release whose tag matches the theme version, for example `v1.0.28`.
-4. The release workflow checks the tag, builds a correctly structured `rivross-corporate.zip` plus the small updater plugin ZIP, and attaches both to the release.
-5. A connected live WordPress site shows the new version under Dashboard → Updates. An administrator can review and install it there.
+3. GitHub Actions validates the matching versions, builds a correctly structured `rivross-corporate.zip` plus the small updater plugin ZIP, and publishes a matching `vX.Y.Z` release automatically. A push without a version increase does not create a release.
+4. A connected live WordPress site shows the new version under Dashboard → Updates after its next update check. An administrator can review and install it there.
 
 The update package contains only theme files. WordPress content, uploads, and database records are not packaged or overwritten by the updater.
 
