@@ -254,8 +254,8 @@
 
 .footer-brand .custom-logo-link {
   display: inline-flex;
-  width: min(100%, 235px);
-  height: auto;
+  width: 92px;
+  height: 84px;
   align-items: center;
   justify-content: flex-start;
   padding: 0;
@@ -511,8 +511,8 @@
 }
 .footer-brand .custom-logo-link {
   display: inline-flex;
-  width: min(100%, 235px);
-  height: auto;
+  width: 92px;
+  height: 84px;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -520,10 +520,10 @@
   background: #fff;
 }
 .footer-brand .custom-logo {
-  width: 100%;
-  height: auto;
-  max-width: none;
-  max-height: none;
+  width: 92px;
+  height: 92px;
+  max-width: 92px;
+  max-height: 92px;
   object-fit: contain;
   filter: none;
 }
@@ -578,8 +578,8 @@
   .site-header__inner { min-height: 68px; }
   .site-brand .custom-logo-link { width: 72px; height: 66px; }
   .site-brand .custom-logo { width: 72px; height: 72px; }
-  .footer-brand .custom-logo-link { width: min(100%, 190px); }
-  .footer-brand .custom-logo { width: 100%; height: auto; }
+  .footer-brand .custom-logo-link { width: 72px; height: 66px; }
+  .footer-brand .custom-logo { width: 72px; height: 72px; max-width: 72px; max-height: 72px; }
   .footer-brand__tagline { font-size: .55rem; letter-spacing: .09em; }
 }
 

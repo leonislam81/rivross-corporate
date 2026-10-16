@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RIVROSS_THEME_VERSION', '1.0.29' );
+define( 'RIVROSS_THEME_VERSION', '1.0.37' );
 
 require_once get_template_directory() . '/inc/partner-logos.php';
 require_once get_template_directory() . '/inc/customizer.php';
@@ -570,9 +570,9 @@ function rivross_primary_menu_fallback() {
 		__( 'Contact Us', 'rivross-corporate' )    => home_url( '/contact-us/' ),
 	);
 	$companies = array(
-		__( 'Real Estate', 'rivross-corporate' )     => home_url( '/real-estate/' ),
-		__( 'Travel & Tourism', 'rivross-corporate' ) => home_url( '/travel-tourism/' ),
 		__( 'Tea Business', 'rivross-corporate' )   => home_url( '/tea-business/' ),
+		__( 'Travel & Tourism', 'rivross-corporate' ) => home_url( '/travel-tourism/' ),
+		__( 'Real Estate', 'rivross-corporate' )     => home_url( '/real-estate/' ),
 	);
 
 	echo '<ul class="site-nav__list">';
@@ -604,7 +604,7 @@ function rivross_prepare_companies_submenu( $items, $args ) {
 
 	$parent       = null;
 	$parent_index = null;
-	$matches      = array( 'real-estate' => null, 'travel-tourism' => null, 'tea-business' => null );
+	$matches      = array( 'tea-business' => null, 'travel-tourism' => null, 'real-estate' => null );
 	$labels       = array(
 		'real-estate'    => __( 'Real Estate', 'rivross-corporate' ),
 		'travel-tourism' => __( 'Travel & Tourism', 'rivross-corporate' ),

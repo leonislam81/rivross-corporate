@@ -151,57 +151,52 @@ $about_button_url    = get_theme_mod( 'rivross_home_about_button_url', '#about' 
 				}
 			}
 			$businesses = array(
-				array( 'business-real-estate.png', 'building', 'Real Estate', 'Property development, sales, investment opportunities and project marketing.', 'Explore Real Estate', home_url( '/real-estate/' ) ),
-				array( 'business-travel.png', 'plane', 'Travel & Tourism', 'Air ticketing, hotel booking, tour packages, Hajj & Umrah and corporate travel services.', 'Explore Travel', home_url( '/travel-tourism/' ) ),
-				array( 'business-tea.png', 'leaf', 'Tea Business', 'Tea supply, wholesale, distribution and supply across Bangladesh.', 'Explore Tea Business', home_url( '/tea-business/' ) ),
+				array( 'type' => 'tea', 'settings' => 3, 'image' => 'business-tea.png', 'icon' => 'leaf', 'title' => 'Tea Business', 'description' => 'Tea supply, wholesale, distribution and supply across Bangladesh.', 'button_label' => 'Explore Tea Business', 'button_url' => home_url( '/tea-business/' ) ),
+				array( 'type' => 'travel', 'settings' => 2, 'image' => 'business-travel.png', 'icon' => 'plane', 'title' => 'Travel & Tourism', 'description' => 'Air ticketing, hotel booking, tour packages, Hajj & Umrah and corporate travel services.', 'button_label' => 'Explore Travel', 'button_url' => home_url( '/travel-tourism/' ) ),
+				array( 'type' => 'real-estate', 'settings' => 1, 'image' => 'business-real-estate.png', 'icon' => 'building', 'title' => 'Real Estate', 'description' => 'Property development, sales, investment opportunities and project marketing.', 'button_label' => 'Explore Real Estate', 'button_url' => home_url( '/real-estate/' ) ),
 			);
-			foreach ( $businesses as $index => $business ) :
-				$number = $index + 1;
-				$business[0] = get_theme_mod( 'rivross_home_business_' . $number . '_image', $image_uri . $business[0] );
-				if ( 0 === $index && ! empty( $real_estate_backgrounds ) ) {
-					$business[0] = $real_estate_backgrounds[0];
+			foreach ( $businesses as $business ) :
+				$type     = $business['type'];
+				$number   = $business['settings'];
+				$card_image = get_theme_mod( 'rivross_home_business_' . $number . '_image', $image_uri . $business['image'] );
+				if ( 'real-estate' === $type && ! empty( $real_estate_backgrounds ) ) {
+					$card_image = $real_estate_backgrounds[0];
 				}
-				$business[1] = get_theme_mod( 'rivross_home_business_' . $number . '_icon', $business[1] );
-				$business[2] = get_theme_mod( 'rivross_home_business_' . $number . '_title', $business[2] );
-				$business[3] = get_theme_mod( 'rivross_home_business_' . $number . '_description', $business[3] );
-				$business[4] = get_theme_mod( 'rivross_home_business_' . $number . '_button_label', $business[4] );
-				$business[5] = get_theme_mod( 'rivross_home_business_' . $number . '_button_url', $business[5] );
+				$icon          = get_theme_mod( 'rivross_home_business_' . $number . '_icon', $business['icon'] );
+				$title         = get_theme_mod( 'rivross_home_business_' . $number . '_title', $business['title'] );
+				$description   = get_theme_mod( 'rivross_home_business_' . $number . '_description', $business['description'] );
+				$button_label  = get_theme_mod( 'rivross_home_business_' . $number . '_button_label', $business['button_label'] );
+				$button_url    = get_theme_mod( 'rivross_home_business_' . $number . '_button_url', $business['button_url'] );
 				$travel_motion_enabled = false;
-				$travel_image_path = (string) wp_parse_url( $business[0], PHP_URL_PATH );
-				if ( 1 === $index && 'business-travel.png' === wp_basename( $travel_image_path ) ) {
-					$business[0]            = $image_uri . 'business-travel-static.png';
+				$travel_image_path = (string) wp_parse_url( $card_image, PHP_URL_PATH );
+				if ( 'travel' === $type && 'business-travel.png' === wp_basename( $travel_image_path ) ) {
+					$card_image            = $image_uri . 'business-travel-static.png';
 					$travel_motion_enabled = true;
 				}
-				$business_class = 'business-card';
-				if ( 0 === $index ) {
-					$business_class .= ' business-card--real-estate';
-				} elseif ( 1 === $index ) {
-					$business_class .= ' business-card--travel';
-				} else {
-					$business_class .= ' business-card--tea';
-				}
+				$business_class = 'business-card business-card--' . $type;
+				$real_estate_carousel = 'real-estate' === $type && count( $real_estate_backgrounds ) > 1;
 				?>
-				<article class="<?php echo esc_attr( $business_class ); ?>" style="--card-image: url('<?php echo esc_url( $business[0] ); ?>');"<?php if ( 0 === $index && count( $real_estate_backgrounds ) > 1 ) : ?> data-business-images="<?php echo esc_attr( wp_json_encode( $real_estate_backgrounds ) ); ?>" data-business-interval="5000"<?php endif; ?>>
-					<?php if ( 0 === $index && count( $real_estate_backgrounds ) > 1 ) : ?>
+				<article class="<?php echo esc_attr( $business_class ); ?>" style="--card-image: url('<?php echo esc_url( $card_image ); ?>');"<?php if ( $real_estate_carousel ) : ?> data-business-images="<?php echo esc_attr( wp_json_encode( $real_estate_backgrounds ) ); ?>" data-business-interval="5000"<?php endif; ?>>
+					<?php if ( $real_estate_carousel ) : ?>
 						<span class="business-card__media business-card__media--primary" aria-hidden="true"></span>
 						<span class="business-card__media business-card__media--secondary" aria-hidden="true"></span>
 					<?php endif; ?>
-					<?php if ( 1 === $index && $travel_motion_enabled ) : ?>
+					<?php if ( $travel_motion_enabled ) : ?>
 						<span class="business-card__cloud business-card__cloud--one" aria-hidden="true"></span>
 						<span class="business-card__cloud business-card__cloud--two" aria-hidden="true"></span>
 						<span class="business-card__cloud business-card__cloud--three" aria-hidden="true"></span>
 						<img class="business-card__plane" src="<?php echo esc_url( $image_uri . 'business-travel-plane.png' ); ?>" alt="" aria-hidden="true" loading="lazy">
 					<?php endif; ?>
-					<?php if ( 2 === $index ) : ?>
+					<?php if ( 'tea' === $type ) : ?>
 						<span class="business-card__mist business-card__mist--one" aria-hidden="true"></span>
 						<span class="business-card__mist business-card__mist--two" aria-hidden="true"></span>
 						<span class="business-card__mist business-card__mist--three" aria-hidden="true"></span>
 					<?php endif; ?>
 					<div class="business-card__content">
-						<div class="business-card__icon"><?php echo rivross_icon( rivross_sanitize_icon_choice( $business[1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-						<h3><?php echo esc_html( $business[2] ); ?></h3>
-						<p><?php echo esc_html( $business[3] ); ?></p>
-						<a href="<?php echo esc_url( rivross_theme_link( $business[5] ) ); ?>"><?php echo esc_html( $business[4] ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+						<div class="business-card__icon"><?php echo rivross_icon( rivross_sanitize_icon_choice( $icon ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+						<h3><?php echo esc_html( $title ); ?></h3>
+						<p><?php echo esc_html( $description ); ?></p>
+						<a href="<?php echo esc_url( rivross_theme_link( $button_url ) ); ?>"><?php echo esc_html( $button_label ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 					</div>
 				</article>
 				<?php

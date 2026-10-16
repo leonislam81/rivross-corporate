@@ -18,15 +18,17 @@ $hero_description = str_replace( '\\n', "\n", (string) get_theme_mod( 'rivross_c
 
 $businesses = array(
 	array(
-		'image'    => 'business-real-estate.png',
-		'icon'     => 'building',
-		'title'    => 'Real Estate',
-		'description' => 'From residential to commercial developments, we build premium properties and communities that stand the test of time.',
-		'features' => array( 'Property Development', 'Sales & Marketing', 'Investment Opportunities', 'Property Management' ),
-		'button'   => 'Explore Real Estate',
-		'url'      => home_url( '/real-estate/' ),
+		'settings' => 3,
+		'image'    => 'business-tea.png',
+		'icon'     => 'leaf',
+		'title'    => 'Tea Business',
+		'description' => 'Delivering the finest quality tea sourced from the best gardens of Bangladesh to local and international markets.',
+		'features' => array( 'Tea Sourcing', 'Wholesale Supply', 'Distribution', 'Corporate Supply' ),
+		'button'   => 'Explore Tea Business',
+		'url'      => '#tea',
 	),
 	array(
+		'settings' => 2,
 		'image'    => 'business-travel.png',
 		'icon'     => 'plane',
 		'title'    => 'Travel & Tourism',
@@ -36,13 +38,14 @@ $businesses = array(
 		'url'      => '#travel',
 	),
 	array(
-		'image'    => 'business-tea.png',
-		'icon'     => 'leaf',
-		'title'    => 'Tea Business',
-		'description' => 'Delivering the finest quality tea sourced from the best gardens of Bangladesh to local and international markets.',
-		'features' => array( 'Tea Sourcing', 'Wholesale Supply', 'Distribution', 'Corporate Supply' ),
-		'button'   => 'Explore Tea Business',
-		'url'      => '#tea',
+		'settings' => 1,
+		'image'    => 'business-real-estate.png',
+		'icon'     => 'building',
+		'title'    => 'Real Estate',
+		'description' => 'From residential to commercial developments, we build premium properties and communities that stand the test of time.',
+		'features' => array( 'Property Development', 'Sales & Marketing', 'Investment Opportunities', 'Property Management' ),
+		'button'   => 'Explore Real Estate',
+		'url'      => home_url( '/real-estate/' ),
 	),
 );
 
@@ -85,7 +88,7 @@ $cta_url         = get_theme_mod( 'rivross_companies_cta_button_url', '#contact'
 			</div>
 
 			<div class="companies-business-grid">
-				<?php foreach ( $businesses as $index => $business ) : $number = $index + 1; ?>
+				<?php foreach ( $businesses as $index => $business ) : $display_number = $index + 1; $number = $business['settings']; ?>
 					<?php
 					$image       = get_theme_mod( 'rivross_companies_business_' . $number . '_image', $image_uri . $business['image'] );
 					$icon        = get_theme_mod( 'rivross_companies_business_' . $number . '_icon', $business['icon'] );
@@ -96,7 +99,7 @@ $cta_url         = get_theme_mod( 'rivross_companies_cta_button_url', '#contact'
 					?>
 					<article class="companies-business-card">
 						<div class="companies-business-card__media" style="--card-image: url('<?php echo esc_url( $image ); ?>');">
-							<span class="companies-business-card__number"><?php echo esc_html( sprintf( '%02d', $number ) ); ?></span>
+							<span class="companies-business-card__number"><?php echo esc_html( sprintf( '%02d', $display_number ) ); ?></span>
 							<span class="companies-business-card__icon"><?php echo rivross_icon( rivross_sanitize_icon_choice( $icon ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 						</div>
 						<div class="companies-business-card__body">

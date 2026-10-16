@@ -1540,7 +1540,7 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_travel_hero_line_2'           => array( 'Experience the World', __( 'Hero Heading Line 2', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_travel_hero_description'      => array( 'From air tickets to unforgettable journeys, we provide complete travel solutions tailored to your needs.', __( 'Hero Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
 		'rivross_travel_hero_button_label'     => array( 'Plan Your Journey', __( 'Hero Button Label', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_travel_hero_button_url'       => array( '#travel-inquiry', __( 'Hero Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
+		'rivross_travel_hero_button_url'       => array( home_url( '/contact-us/#contact-form' ), __( 'Hero Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
 		'rivross_travel_services_eyebrow'      => array( 'Our Services', __( 'Services Eyebrow', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_travel_services_title'        => array( 'Complete Travel Solutions', __( 'Services Heading', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_travel_why_eyebrow'           => array( 'Why Choose RIVROSS?', __( 'Commitment Eyebrow', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
@@ -1548,9 +1548,7 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_travel_cta_title'             => array( 'Ready to Explore the World?', __( 'CTA Heading', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_travel_cta_description'       => array( 'Let us handle the details while you enjoy the experience.', __( 'CTA Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
 		'rivross_travel_cta_button_label'      => array( 'Inquire Now', __( 'CTA Button Label', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_travel_cta_button_url'        => array( '#travel-inquiry', __( 'CTA Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
-		'rivross_travel_inquiry_eyebrow'       => array( 'Plan Your Journey With Us', __( 'Inquiry Eyebrow', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_travel_inquiry_description'   => array( 'Share your travel plans and we\'ll get back to you with the best options.', __( 'Inquiry Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
+		'rivross_travel_cta_button_url'        => array( home_url( '/contact-us/#contact-form' ), __( 'CTA Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
 	);
 	foreach ( $travel_fields as $setting_id => $field ) {
 		rivross_add_theme_control( $wp_customize, $setting_id, $field[0], $field[1], 'rivross_travel_page', $field[2], $field[3] );
@@ -1613,7 +1611,7 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_tea_hero_line_2'         => array( 'Sourced with Care', __( 'Hero Heading Line 2', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_tea_hero_description'    => array( 'Delivering premium quality tea from the lush gardens of Bangladesh to homes and businesses around the world.', __( 'Hero Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
 		'rivross_tea_hero_button_label'   => array( 'Discover Our Tea Solutions', __( 'Hero Button Label', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_tea_hero_button_url'     => array( '#tea-inquiry', __( 'Hero Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
+		'rivross_tea_hero_button_url'     => array( home_url( '/contact-us/#contact-form' ), __( 'Hero Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
 		'rivross_tea_services_eyebrow'    => array( 'Our Tea Solutions', __( 'Services Eyebrow', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_tea_services_title'      => array( 'Quality Tea for Every Need', __( 'Services Heading', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_tea_why_eyebrow'         => array( 'Why Choose RIVROSS Tea?', __( 'Commitment Eyebrow', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
@@ -1621,17 +1619,13 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_tea_cta_title'           => array( 'Let’s Grow Together', __( 'CTA Heading', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_tea_cta_description'     => array( 'Partner with RIVROSS Tea for premium quality, reliable supply and business growth.', __( 'CTA Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
 		'rivross_tea_cta_button_label'    => array( 'Business Inquiry', __( 'CTA Button Label', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_tea_cta_button_url'      => array( '#tea-inquiry', __( 'CTA Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
-		'rivross_tea_inquiry_eyebrow'     => array( 'Let’s Do Business Together', __( 'Inquiry Eyebrow', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_tea_inquiry_title'       => array( 'Tell Us What You Need', __( 'Inquiry Heading', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_tea_inquiry_description' => array( 'Tell us about your requirement and we’ll get back to you soon.', __( 'Inquiry Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
+		'rivross_tea_cta_button_url'      => array( home_url( '/contact-us/#contact-form' ), __( 'CTA Button URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
 	);
 	foreach ( $tea_fields as $setting_id => $field ) {
 		rivross_add_theme_control( $wp_customize, $setting_id, $field[0], $field[1], 'rivross_tea_page', $field[2], $field[3] );
 	}
 	rivross_add_theme_control( $wp_customize, 'rivross_tea_hero_image', get_theme_file_uri( '/assets/images/tea/tea-hero.png' ), __( 'Hero Background Image', 'rivross-corporate' ), 'rivross_tea_page', 'image', 'esc_url_raw' );
 	rivross_add_theme_control( $wp_customize, 'rivross_tea_why_image', get_theme_file_uri( '/assets/images/tea/tea-commitment.png' ), __( 'Commitment Section Image', 'rivross-corporate' ), 'rivross_tea_page', 'image', 'esc_url_raw' );
-	rivross_add_theme_control( $wp_customize, 'rivross_tea_inquiry_image', get_theme_file_uri( '/assets/images/tea/service-corporate-supply.png' ), __( 'Inquiry Section Image', 'rivross-corporate' ), 'rivross_tea_page', 'image', 'esc_url_raw' );
 
 	$tea_benefits = array(
 		array( 'leaf', 'Premium Quality', 'Carefully selected finest tea leaves' ),

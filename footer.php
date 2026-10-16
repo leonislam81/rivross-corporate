@@ -59,6 +59,14 @@
 				</ul>
 			</div>
 
+			<div class="footer-column">
+				<h3><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_title', __( 'Legal', 'rivross-corporate' ) ) ); ?></h3>
+				<ul class="footer-links">
+					<li><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_footer_legal_1_url', home_url( '/terms-and-conditions/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_1_label', __( 'Terms & Conditions', 'rivross-corporate' ) ) ); ?></a></li>
+					<li><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_footer_legal_2_url', home_url( '/privacy-policy/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_2_label', __( 'Privacy Policy', 'rivross-corporate' ) ) ); ?></a></li>
+				</ul>
+			</div>
+
 			<div class="footer-column footer-contact">
 				<h3><?php echo esc_html( get_theme_mod( 'rivross_footer_contact_title', __( 'Contact Information', 'rivross-corporate' ) ) ); ?></h3>
 				<ul class="footer-contact__list">
@@ -66,14 +74,6 @@
 					<li><a href="mailto:<?php echo esc_attr( get_theme_mod( 'rivross_contact_email', 'rivrossgroup@gmail.com' ) ); ?>"><?php echo rivross_icon( 'mail' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( get_theme_mod( 'rivross_contact_email', 'rivrossgroup@gmail.com' ) ); ?></span></a></li>
 					<li><a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', get_theme_mod( 'rivross_contact_phone', '01796-566279' ) ) ); ?>"><?php echo rivross_icon( 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( get_theme_mod( 'rivross_contact_phone', '01796-566279' ) ); ?></span></a></li>
 					<li><?php echo rivross_icon( 'clock' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( get_theme_mod( 'rivross_footer_hours', __( 'Saturday - Thursday | 10:00 AM - 07:00 PM', 'rivross-corporate' ) ) ); ?></span></li>
-				</ul>
-			</div>
-
-			<div class="footer-column">
-				<h3><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_title', __( 'Legal', 'rivross-corporate' ) ) ); ?></h3>
-				<ul class="footer-links">
-					<li><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_footer_legal_1_url', home_url( '/terms-and-conditions/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_1_label', __( 'Terms & Conditions', 'rivross-corporate' ) ) ); ?></a></li>
-					<li><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_footer_legal_2_url', home_url( '/privacy-policy/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_2_label', __( 'Privacy Policy', 'rivross-corporate' ) ) ); ?></a></li>
 				</ul>
 			</div>
 		</div>

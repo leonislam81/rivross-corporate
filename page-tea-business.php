@@ -10,9 +10,15 @@ get_header();
 $tea_image_uri = get_theme_file_uri( '/assets/images/tea/' );
 $hero_image    = get_theme_mod( 'rivross_tea_hero_image', $tea_image_uri . 'tea-hero.png' );
 $why_image     = get_theme_mod( 'rivross_tea_why_image', $tea_image_uri . 'tea-commitment.png' );
-$inquiry_image = get_theme_mod( 'rivross_tea_inquiry_image', $tea_image_uri . 'service-corporate-supply.png' );
-$hero_button   = trim( (string) get_theme_mod( 'rivross_tea_hero_button_url', '#tea-inquiry' ) );
-$cta_button    = trim( (string) get_theme_mod( 'rivross_tea_cta_button_url', '#tea-inquiry' ) );
+$tea_contact_url = home_url( '/contact-us/#contact-form' );
+$hero_button     = trim( (string) get_theme_mod( 'rivross_tea_hero_button_url', $tea_contact_url ) );
+$cta_button      = trim( (string) get_theme_mod( 'rivross_tea_cta_button_url', $tea_contact_url ) );
+if ( false !== strpos( strtolower( $hero_button ), '#tea-inquiry' ) ) {
+	$hero_button = $tea_contact_url;
+}
+if ( false !== strpos( strtolower( $cta_button ), '#tea-inquiry' ) ) {
+	$cta_button = $tea_contact_url;
+}
 $hero_url      = 0 === strpos( $hero_button, '#' ) ? $hero_button : rivross_theme_link( $hero_button );
 $cta_url       = 0 === strpos( $cta_button, '#' ) ? $cta_button : rivross_theme_link( $cta_button );
 
@@ -59,13 +65,6 @@ foreach ( $why_points as $index => $point ) {
 	$why_points[ $index ] = get_theme_mod( 'rivross_tea_why_point_' . ( $index + 1 ), $point );
 }
 
-$tea_form = '';
-if ( class_exists( 'WPCF7_ContactForm' ) ) {
-	$forms = WPCF7_ContactForm::find( array( 'title' => 'RIVROSS Tea Inquiry', 'posts_per_page' => 1 ) );
-	if ( ! empty( $forms ) && is_object( $forms[0] ) ) {
-		$tea_form = do_shortcode( $forms[0]->shortcode() );
-	}
-}
 ?>
 
 <section class="tea-hero" style="--tea-hero-image:url('<?php echo esc_url( $hero_image ); ?>');">
@@ -82,7 +81,5 @@ if ( class_exists( 'WPCF7_ContactForm' ) ) {
 <section class="tea-commitment tea-section"><div class="rivross-container rivross-container--wide tea-commitment__inner" style="--tea-why-image:url('<?php echo esc_url( $why_image ); ?>');"><div class="tea-commitment__copy"><p class="tea-kicker"><span></span><?php echo esc_html( get_theme_mod( 'rivross_tea_why_eyebrow', __( 'Why Choose RIVROSS Tea?', 'rivross-corporate' ) ) ); ?></p><h2><?php echo esc_html( get_theme_mod( 'rivross_tea_why_title', __( 'A Commitment to Excellence', 'rivross-corporate' ) ) ); ?></h2><ul><?php foreach ( $why_points as $point ) : ?><li><?php echo rivross_icon( 'check' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( $point ); ?></span></li><?php endforeach; ?></ul></div></div></section>
 
 <section class="tea-cta"><div class="rivross-container rivross-container--wide tea-cta__inner"><div class="tea-cta__icon"><?php echo rivross_icon( 'leaf' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><div><h2><?php echo esc_html( get_theme_mod( 'rivross_tea_cta_title', __( 'Let’s Grow Together', 'rivross-corporate' ) ) ); ?></h2><p><?php echo esc_html( get_theme_mod( 'rivross_tea_cta_description', __( 'Partner with RIVROSS Tea for premium quality, reliable supply and business growth.', 'rivross-corporate' ) ) ); ?></p></div><a class="rivross-button" href="<?php echo esc_url( $cta_url ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_tea_cta_button_label', __( 'Business Inquiry', 'rivross-corporate' ) ) ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div></section>
-
-<section id="tea-inquiry" class="tea-inquiry tea-section"><div class="rivross-container rivross-container--wide"><div class="tea-section__heading"><span class="rivross-eyebrow"><?php echo esc_html( get_theme_mod( 'rivross_tea_inquiry_eyebrow', __( 'Let’s Do Business Together', 'rivross-corporate' ) ) ); ?></span><h2><?php echo esc_html( get_theme_mod( 'rivross_tea_inquiry_title', __( 'Tell Us What You Need', 'rivross-corporate' ) ) ); ?></h2><p><?php echo esc_html( get_theme_mod( 'rivross_tea_inquiry_description', __( 'Tell us about your requirement and we’ll get back to you soon.', 'rivross-corporate' ) ) ); ?></p></div><div class="tea-inquiry__grid"><div class="tea-inquiry__form"><?php if ( $tea_form ) : ?><?php echo $tea_form; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php else : ?><p><?php esc_html_e( 'Our tea inquiry form will be available shortly.', 'rivross-corporate' ); ?></p><?php endif; ?></div><figure class="tea-inquiry__image"><img src="<?php echo esc_url( $inquiry_image ); ?>" alt="<?php esc_attr_e( 'RIVROSS tea service', 'rivross-corporate' ); ?>"></figure></div></div></section>
 
 <?php get_footer(); ?>
