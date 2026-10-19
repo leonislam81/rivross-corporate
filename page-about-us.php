@@ -23,6 +23,25 @@ $intro_paragraph_2  = get_theme_mod( 'rivross_about_intro_paragraph_2', __( 'Our
 $intro_button_label = get_theme_mod( 'rivross_about_intro_button_label', __( 'Download Corporate Profile', 'rivross-corporate' ) );
 $intro_button_url   = get_theme_mod( 'rivross_about_intro_button_url', '#contact' );
 
+$about_email        = get_theme_mod( 'rivross_contact_email', 'rivrossgroup@gmail.com' );
+$about_phone        = get_theme_mod( 'rivross_contact_phone', '01796-566279' );
+$about_visit        = get_theme_mod( 'rivross_contact_visit_address', get_theme_mod( 'rivross_contact_address', '3/3 Matuail Junglebari, Jatrabari, Dhaka-1362, Bangladesh' ) );
+$about_map_url      = get_theme_mod( 'rivross_contact_map_url', 'https://maps.google.com/?q=Jatrabari,Dhaka' );
+$about_socials      = array();
+foreach ( array( 'facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'youtube' => 'YouTube', 'instagram' => 'Instagram' ) as $social_key => $social_label ) {
+	$about_socials[ $social_key ] = array(
+		'label' => $social_label,
+		'url'   => get_theme_mod( 'rivross_social_' . $social_key, '#' ),
+	);
+}
+
+$about_expertise = array(
+	array( 'building', 'Real Estate', 'Property development, sales and investment opportunities shaped around long-term value.', home_url( '/real-estate/' ) ),
+	array( 'plane', 'Travel & Tourism', 'Air ticketing, hotel booking, tour packages and corporate travel support.', home_url( '/travel-tourism/' ) ),
+	array( 'leaf', 'Tea Business', 'Thoughtful sourcing and dependable supply from Bangladesh to growing markets.', home_url( '/tea-business/' ) ),
+	array( 'ruler', 'Building Services', 'Doors, tiles & ceramics, interior, plumbing and finishing support for better spaces.', get_post_type_archive_link( 'rivross_service' ) ? get_post_type_archive_link( 'rivross_service' ) : home_url( '/services/' ) ),
+);
+
 $pillars = array(
 	array( 'eye', 'Our Vision', 'To be a leading diversified business organization recognized for excellence, innovation and sustainable growth.' ),
 	array( 'target', 'Our Mission', 'To create long-term value through quality services, trusted partnerships and responsible business practices.' ),
@@ -92,6 +111,64 @@ $dynamic_leaders         = $dynamic_leaders_enabled && function_exists( 'rivross
 					<?php echo rivross_icon( rivross_sanitize_icon_choice( $pillar[0] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<div><h3><?php echo esc_html( $pillar[1] ); ?></h3><p><?php echo esc_html( $pillar[2] ); ?></p></div>
 				</div>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+
+<section class="about-section about-contact-panel">
+	<div class="rivross-container rivross-container--wide">
+		<div class="about-contact-panel__intro">
+			<div>
+				<span class="rivross-eyebrow"><?php esc_html_e( 'Visit Rivross', 'rivross-corporate' ); ?></span>
+				<h2><?php esc_html_e( 'Let’s build the next opportunity together.', 'rivross-corporate' ); ?></h2>
+				<p><?php esc_html_e( 'Have a requirement, a partnership idea or a place to visit? Our team is ready to listen and guide you to the right next step.', 'rivross-corporate' ); ?></p>
+			</div>
+			<a class="rivross-button" href="<?php echo esc_url( rivross_theme_link( '#contact' ) ); ?>"><?php esc_html_e( 'Start a Conversation', 'rivross-corporate' ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+		</div>
+
+		<div class="about-contact-panel__cards">
+			<a class="about-contact-card" href="mailto:<?php echo esc_attr( $about_email ); ?>">
+				<span class="about-contact-card__icon"><?php echo rivross_icon( 'mail' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<span class="about-contact-card__copy"><small><?php esc_html_e( 'Email Us', 'rivross-corporate' ); ?></small><strong><?php echo esc_html( $about_email ); ?></strong><em><?php esc_html_e( 'We reply within 24 hours', 'rivross-corporate' ); ?></em></span>
+			</a>
+			<a class="about-contact-card" href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $about_phone ) ); ?>">
+				<span class="about-contact-card__icon"><?php echo rivross_icon( 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<span class="about-contact-card__copy"><small><?php esc_html_e( 'Call Us', 'rivross-corporate' ); ?></small><strong><?php echo esc_html( $about_phone ); ?></strong><em><?php esc_html_e( 'Saturday – Thursday · 10:00 AM – 07:00 PM', 'rivross-corporate' ); ?></em></span>
+			</a>
+			<a class="about-contact-card" href="<?php echo esc_url( $about_map_url ); ?>" target="_blank" rel="noopener">
+				<span class="about-contact-card__icon"><?php echo rivross_icon( 'pin' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<span class="about-contact-card__copy"><small><?php esc_html_e( 'Visit Us', 'rivross-corporate' ); ?></small><strong><?php esc_html_e( 'Our Office Location', 'rivross-corporate' ); ?></strong><em><?php echo esc_html( $about_visit ); ?></em></span>
+			</a>
+		</div>
+
+		<div class="about-contact-panel__socials">
+			<span><?php esc_html_e( 'Our Companies · Connect with RIVROSS', 'rivross-corporate' ); ?></span>
+			<div>
+				<?php foreach ( $about_socials as $social_key => $social ) : ?>
+					<a href="<?php echo esc_url( $social['url'] ); ?>" aria-label="<?php echo esc_attr( $social['label'] ); ?>"<?php echo '#' !== $social['url'] ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo rivross_icon( $social_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="about-section about-expertise about-section--surface">
+	<div class="rivross-container rivross-container--wide">
+		<div class="about-section__heading about-expertise__heading">
+			<span class="rivross-eyebrow"><?php esc_html_e( 'Our Experience', 'rivross-corporate' ); ?></span>
+			<h2><?php esc_html_e( 'One group. Multiple ways to create value.', 'rivross-corporate' ); ?></h2>
+			<p><?php esc_html_e( 'From property and travel to tea and building services, our experience connects people, products and possibilities.', 'rivross-corporate' ); ?></p>
+		</div>
+		<div class="about-expertise__grid">
+			<?php foreach ( $about_expertise as $index => $expertise ) : ?>
+				<a class="about-expertise-card" href="<?php echo esc_url( $expertise[3] ); ?>">
+					<span class="about-expertise-card__number">0<?php echo esc_html( $index + 1 ); ?></span>
+					<span class="about-expertise-card__icon"><?php echo rivross_icon( $expertise[0] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					<h3><?php echo esc_html( $expertise[1] ); ?></h3>
+					<p><?php echo esc_html( $expertise[2] ); ?></p>
+					<span class="about-expertise-card__link"><?php esc_html_e( 'Explore area', 'rivross-corporate' ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				</a>
 			<?php endforeach; ?>
 		</div>
 	</div>

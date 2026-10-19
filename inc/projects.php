@@ -19,8 +19,10 @@ function rivross_register_project_content() {
 			'search_items' => __( 'Search Projects', 'rivross-corporate' ),
 		),
 		'public' => true,
-		'show_ui' => true,
-		'show_in_rest' => true,
+		/* Projects are retained only for legacy imported records; Services is the public catalogue. */
+		'show_ui' => false,
+		'show_in_rest' => false,
+		'show_in_menu' => false,
 		'menu_icon' => 'dashicons-admin-multisite',
 		'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
 		'has_archive' => false,
@@ -30,8 +32,8 @@ function rivross_register_project_content() {
 	register_taxonomy( 'rivross_project_type', 'rivross_project', array(
 		'labels' => array( 'name' => __( 'Project Types', 'rivross-corporate' ), 'singular_name' => __( 'Project Type', 'rivross-corporate' ) ),
 		'hierarchical' => true,
-		'show_ui' => true,
-		'show_in_rest' => true,
+		'show_ui' => false,
+		'show_in_rest' => false,
 		'public' => false,
 	) );
 }

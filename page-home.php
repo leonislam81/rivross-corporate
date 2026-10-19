@@ -5,7 +5,7 @@
  *
  * RIVROSS homepage with editable Hero Slides and Customizer-managed sections.
  *
- * Hero slides and the latest property/project showcase entries are managed
+ * Hero slides, property highlights and the latest service showcase entries are managed
  * from the dashboard; section headings and supporting copy remain editable
  * through the theme's Customizer controls.
  *
@@ -236,7 +236,7 @@ $about_button_url    = get_theme_mod( 'rivross_home_about_button_url', '#about' 
 	</div>
 </section>
 
-<section id="projects" class="home-showcase home-section">
+<section id="properties" class="home-showcase home-section">
 	<div class="rivross-container rivross-container--wide showcase-grid">
 		<div class="showcase-panel">
 			<div class="showcase-panel__heading"><h2><?php echo esc_html( get_theme_mod( 'rivross_home_properties_title', __( 'Featured Properties', 'rivross-corporate' ) ) ); ?></h2><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_home_properties_view_all_url', home_url( '/real-estate/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_home_properties_view_all_label', __( 'View All Properties', 'rivross-corporate' ) ) ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div>
@@ -247,8 +247,9 @@ $about_button_url    = get_theme_mod( 'rivross_home_about_button_url', '#about' 
 						'post_type'      => 'rivross_property',
 						'post_status'    => 'publish',
 						'posts_per_page' => 3,
-						'orderby'        => 'date',
-						'order'          => 'DESC',
+						'orderby'        => 'meta_value_num title',
+						'meta_key'       => '_rivross_service_order',
+						'order'          => 'ASC',
 					)
 				);
 				if ( ! empty( $property_posts ) && function_exists( 'rivross_property_meta' ) ) :
@@ -283,7 +284,7 @@ $about_button_url    = get_theme_mod( 'rivross_home_about_button_url', '#about' 
 			</div>
 		</div>
 
-		<div id="services" class="showcase-panel">
+			<div id="travel-services" class="showcase-panel">
 			<div class="showcase-panel__heading"><h2><?php echo esc_html( get_theme_mod( 'rivross_home_services_title', __( 'Travel Services', 'rivross-corporate' ) ) ); ?></h2><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_home_services_view_all_url', '#travel' ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_home_services_view_all_label', __( 'View All Services', 'rivross-corporate' ) ) ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div>
 			<div class="service-grid">
 				<?php
@@ -304,38 +305,39 @@ $about_button_url    = get_theme_mod( 'rivross_home_about_button_url', '#about' 
 	</div>
 </section>
 
-<section class="home-network home-section home-section--surface">
+<section id="services" class="home-network home-section home-section--surface">
 	<div class="rivross-container rivross-container--wide network-grid">
 		<div class="showcase-panel">
-			<div class="showcase-panel__heading"><h2><?php echo esc_html( get_theme_mod( 'rivross_home_projects_title', __( 'Our Projects', 'rivross-corporate' ) ) ); ?></h2><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_home_projects_view_all_url', home_url( '/projects/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_home_projects_view_all_label', __( 'View All Projects', 'rivross-corporate' ) ) ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div>
-			<div class="project-grid">
+			<div class="showcase-panel__heading"><h2><?php echo esc_html( get_theme_mod( 'rivross_home_services_title', __( 'Our Services', 'rivross-corporate' ) ) ); ?></h2><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_home_services_view_all_url', home_url( '/services/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_home_services_view_all_label', __( 'View All Services', 'rivross-corporate' ) ) ); ?> <?php echo rivross_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div>
+			<div class="project-grid home-service-grid">
 				<?php
-				$project_posts = get_posts(
+				$service_posts = get_posts(
 					array(
-						'post_type'      => 'rivross_project',
+						'post_type'      => 'rivross_service',
 						'post_status'    => 'publish',
 						'posts_per_page' => 3,
 						'orderby'        => 'date',
 						'order'          => 'DESC',
 					)
 				);
-				if ( ! empty( $project_posts ) && function_exists( 'rivross_project_meta' ) ) :
-					foreach ( $project_posts as $project_post ) :
-						$project_id = $project_post->ID;
-						$project_status = rivross_project_meta( $project_id, 'status', __( 'Project', 'rivross-corporate' ) );
-						$project_url = get_permalink( $project_id );
+				if ( ! empty( $service_posts ) && function_exists( 'rivross_service_meta' ) ) :
+					foreach ( $service_posts as $service_post ) :
+						$service_id = $service_post->ID;
+						$service_category_terms = get_the_terms( $service_id, 'rivross_service_category' );
+						$service_category = ! empty( $service_category_terms ) && ! is_wp_error( $service_category_terms ) ? $service_category_terms[0]->name : __( 'Service', 'rivross-corporate' );
+						$service_url = get_permalink( $service_id );
 						?>
-						<article class="project-card"><a class="project-card__image-link" href="<?php echo esc_url( $project_url ); ?>"><div class="project-card__image"><img src="<?php echo esc_url( rivross_project_image_url( $project_id ) ); ?>" alt="<?php echo esc_attr( get_the_title( $project_id ) ); ?>" loading="lazy"><span class="project-card__status"><?php echo esc_html( $project_status ); ?></span></div></a><h3><a href="<?php echo esc_url( $project_url ); ?>"><?php echo esc_html( get_the_title( $project_id ) ); ?></a></h3><p><?php echo rivross_icon( 'pin' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( rivross_project_meta( $project_id, 'location' ) ); ?></p><small><?php echo esc_html( rivross_project_meta( $project_id, 'timeline' ) ); ?></small></article>
+						<article class="project-card service-card home-service-card"><a class="project-card__image-link" href="<?php echo esc_url( $service_url ); ?>"><div class="project-card__image"><img src="<?php echo esc_url( rivross_service_image_url( $service_id ) ); ?>" alt="<?php echo esc_attr( get_the_title( $service_id ) ); ?>" loading="lazy"><span class="project-card__status"><?php echo esc_html( $service_category ); ?></span></div></a><h3><a href="<?php echo esc_url( $service_url ); ?>"><?php echo esc_html( get_the_title( $service_id ) ); ?></a></h3><p><?php echo rivross_icon( rivross_service_icon( $service_id ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( rivross_service_meta( $service_id, 'tagline' ) ); ?></p><small><?php echo esc_html( wp_trim_words( rivross_service_meta( $service_id, 'intro', get_the_excerpt( $service_id ) ), 12, '…' ) ); ?></small></article>
 						<?php
 					endforeach;
 				else :
-					$project_fallbacks = array(
-						array( 'business-real-estate.png', 'Ongoing', 'Rivross Heights', 'Bashundhara, Dhaka', 'Completion: Dec 2026' ),
-						array( 'property-tower.png', 'Upcoming', 'Rivross City Center', 'Mirpur, Dhaka', 'Completion: Jun 2027' ),
-						array( 'business-real-estate.png', 'Completed', 'Rivross Garden', 'Uttara, Dhaka', 'Completed: 2024' ),
+					$service_fallbacks = array(
+						array( 'business-real-estate.png', 'Building Finishes', 'Doors & Architectural Hardware', 'First impressions, engineered beautifully.' ),
+						array( 'property-tower.png', 'Building Finishes', 'Tiles & Ceramics', 'Surfaces that shape the character of a space.' ),
+						array( 'business-real-estate.png', 'Design & Fit-Out', 'Interior Design & Fit-Out', 'Thoughtful interiors, delivered end to end.' ),
 					);
-					foreach ( $project_fallbacks as $project ) :
-						?><article class="project-card"><div class="project-card__image"><img src="<?php echo esc_url( $image_uri . $project[0] ); ?>" alt="<?php echo esc_attr( $project[2] ); ?>" loading="lazy"><span class="project-card__status"><?php echo esc_html( $project[1] ); ?></span></div><h3><?php echo esc_html( $project[2] ); ?></h3><p><?php echo rivross_icon( 'pin' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( $project[3] ); ?></p><small><?php echo esc_html( $project[4] ); ?></small></article><?php
+					foreach ( $service_fallbacks as $service ) :
+						?><article class="project-card service-card home-service-card"><div class="project-card__image"><img src="<?php echo esc_url( $image_uri . $service[0] ); ?>" alt="<?php echo esc_attr( $service[2] ); ?>" loading="lazy"><span class="project-card__status"><?php echo esc_html( $service[1] ); ?></span></div><h3><?php echo esc_html( $service[2] ); ?></h3><p><?php echo rivross_icon( 'check' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( $service[3] ); ?></p><small><?php esc_html_e( 'Explore our capabilities', 'rivross-corporate' ); ?></small></article><?php
 					endforeach;
 				endif;
 				?>

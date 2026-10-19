@@ -1276,3 +1276,19 @@
   .home-hero__actions { flex-direction: column; align-items: stretch; }
   .home-hero__actions .rivross-button { width: 100%; flex-basis: auto; }
 }
+
+
+/* Homepage service cards: keep cards readable at narrow widths. */
+@media (max-width:850px){
+  .home-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+}
+@media (max-width:600px){
+  #services .showcase-panel__heading{align-items:flex-start;flex-wrap:wrap;row-gap:.55rem}
+  #services .showcase-panel__heading h2{white-space:nowrap}
+  #services .showcase-panel__heading a{margin-left:auto}
+  .home-service-grid{grid-template-columns:1fr;gap:1rem}
+  .home-service-card .project-card__image img{height:150px}
+  .home-service-card h3{font-size:1rem;line-height:1.25}
+  .home-service-card p,
+  .home-service-card small{font-size:.78rem;line-height:1.55}
+}

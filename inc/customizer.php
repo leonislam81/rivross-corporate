@@ -344,7 +344,7 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_theme_settings',
 		array(
 			'title'       => __( 'RIVROSS Theme Settings', 'rivross-corporate' ),
-			'description' => __( 'Edit the website from one place. Open Page Settings to choose a page, then update its content, images, links and display options. For projects, properties, events, jobs and leadership profiles, use the matching Dashboard menu.', 'rivross-corporate' ),
+			'description' => __( 'Edit the website from one place. Open Page Settings to choose a page, then update its content, images, links and display options. For services, properties, events, jobs and leadership profiles, use the matching Dashboard menu.', 'rivross-corporate' ),
 			'priority'    => 30,
 		)
 	);
@@ -596,7 +596,7 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_home_showcase',
 		array(
 			'title'       => __( 'Home — Showcase & Partners', 'rivross-corporate' ),
-		'description' => __( 'Edit the showcase headings and view-all links. Five polished demo logos are added to the Media Library automatically; replace them with your official partner images from the Media Library. Empty slots stay hidden. Property and project cards automatically show the latest published entries from their dashboards.', 'rivross-corporate' ),
+		'description' => __( 'Edit the showcase headings and view-all links. Five polished demo logos are added to the Media Library automatically; replace them with your official partner images from the Media Library. Empty slots stay hidden. Property and service cards automatically show the latest published entries from their dashboards.', 'rivross-corporate' ),
 			'panel'       => 'rivross_theme_settings',
 			'priority'    => 40,
 		)
@@ -606,9 +606,9 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_home_properties_title'       => array( 'Featured Properties', __( 'Properties Section Title', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 		'rivross_home_properties_view_all_label' => array( 'View All Properties', __( 'Properties View-All Label', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 	'rivross_home_properties_view_all_url' => array( home_url( '/real-estate/' ), __( 'Properties View-All URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
-		'rivross_home_projects_title'          => array( 'Our Projects', __( 'Projects Section Title', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_home_projects_view_all_label' => array( 'View All Projects', __( 'Projects View-All Label', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-	'rivross_home_projects_view_all_url'   => array( home_url( '/projects/' ), __( 'Projects View-All URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
+		'rivross_home_services_title'          => array( 'Our Services', __( 'Services Section Title', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
+		'rivross_home_services_view_all_label' => array( 'View All Services', __( 'Services View-All Label', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
+		'rivross_home_services_view_all_url'   => array( home_url( '/services/' ), __( 'Services View-All URL', 'rivross-corporate' ), 'url', 'esc_url_raw' ),
 		'rivross_home_partners_title'          => array( 'Our Partners', __( 'Partners Section Title', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
 	);
 
@@ -1503,25 +1503,26 @@ function rivross_customize_register( $wp_customize ) {
 	}
 
 	$wp_customize->add_section(
-		'rivross_projects_page',
+		'rivross_services_page',
 		array(
-			'title'       => __( 'Projects Page Settings', 'rivross-corporate' ),
-			'description' => __( 'Control the Projects showcase hero and CTA. Manage project cards from Dashboard → Projects.', 'rivross-corporate' ),
+			'title'       => __( 'Services Page Settings', 'rivross-corporate' ),
+			'description' => __( 'Control the Services catalogue hero and CTA. Manage service cards from Dashboard → Services.', 'rivross-corporate' ),
 			'panel'       => 'rivross_theme_settings',
-			'priority'    => 95,
+			'priority'    => 96,
 		)
 	);
-	$projects_fields = array(
-		'rivross_projects_hero_line_1' => array( 'Our Projects,', __( 'Hero Heading Line 1', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_projects_hero_line_2' => array( 'Building Better Tomorrows', __( 'Hero Heading Line 2', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_projects_hero_description' => array( 'Discover our diverse portfolio of real estate developments that redefine modern living and create lasting value.', __( 'Hero Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
-		'rivross_projects_cta_title' => array( 'Let’s Build Something Great Together', __( 'CTA Title', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
-		'rivross_projects_cta_description' => array( 'Have a project in mind? Partner with RIVROSS for trusted development and outstanding results.', __( 'CTA Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
+	$services_fields = array(
+		'rivross_services_hero_eyebrow'     => array( 'Built Around Your Needs', __( 'Hero Eyebrow', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
+		'rivross_services_hero_line_1'      => array( 'Complete Solutions,', __( 'Hero Heading Line 1', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
+		'rivross_services_hero_line_2'      => array( 'Delivered With Care', __( 'Hero Heading Line 2', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
+		'rivross_services_hero_description' => array( 'From doors and tiles to interiors, plumbing and property care, RIVROSS brings trusted products and practical expertise together for every space.', __( 'Hero Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
+		'rivross_services_cta_title'        => array( 'Have a space in mind?', __( 'CTA Title', 'rivross-corporate' ), 'text', 'sanitize_text_field' ),
+		'rivross_services_cta_description'  => array( 'Share your requirement and our team will recommend the right service path.', __( 'CTA Description', 'rivross-corporate' ), 'textarea', 'sanitize_textarea_field' ),
 	);
-	foreach ( $projects_fields as $setting_id => $field ) {
-		rivross_add_theme_control( $wp_customize, $setting_id, $field[0], $field[1], 'rivross_projects_page', $field[2], $field[3] );
+	foreach ( $services_fields as $setting_id => $field ) {
+		rivross_add_theme_control( $wp_customize, $setting_id, $field[0], $field[1], 'rivross_services_page', $field[2], $field[3] );
 	}
-	rivross_add_theme_control( $wp_customize, 'rivross_projects_hero_image', get_theme_file_uri( '/assets/images/projects/projects-hero.png' ), __( 'Hero Background Image', 'rivross-corporate' ), 'rivross_projects_page', 'image', 'esc_url_raw' );
+	rivross_add_theme_control( $wp_customize, 'rivross_services_hero_image', get_theme_file_uri( '/assets/images/services-redesign/services-hero.webp' ), __( 'Hero Background Image', 'rivross-corporate' ), 'rivross_services_page', 'image', 'esc_url_raw' );
 
 	$wp_customize->add_section(
 		'rivross_travel_page',

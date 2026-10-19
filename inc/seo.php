@@ -44,7 +44,7 @@ function rivross_seo_description() {
 		$description = get_bloginfo( 'description' );
 	}
 	if ( '' === trim( (string) $description ) ) {
-		$description = sprintf( __( '%s — corporate information, projects and opportunities.', 'rivross-corporate' ), get_bloginfo( 'name' ) );
+		$description = sprintf( __( '%s — corporate information, services and opportunities.', 'rivross-corporate' ), get_bloginfo( 'name' ) );
 	}
 
 	return trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( (string) $description ) ) );

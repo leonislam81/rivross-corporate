@@ -371,12 +371,17 @@
 
 .footer-bottom__inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
   padding-block: 0.85rem;
   color: var(--rivross-color-muted);
   font-size: 0.68rem;
 }
+
+.footer-bottom__developer { text-align: left; }
+.footer-bottom__developer a { color: var(--rivross-color-gold); font-weight: 700; }
+.footer-bottom__developer a:hover,
+.footer-bottom__developer a:focus-visible { color: var(--rivross-color-gold-light); }
 
 .screen-reader-text {
   position: absolute !important;
@@ -667,4 +672,20 @@
     background: rgba(201, 150, 45, .12);
     color: var(--rivross-color-gold) !important;
   }
+}
+
+
+/* Keep footer contact details inside narrow mobile columns. */
+.footer-main__grid,
+.footer-main__grid>*,
+.footer-contact,
+.footer-contact__list,
+.footer-contact__list li,
+.footer-contact__list a{min-width:0}
+.footer-contact__list li,
+.footer-contact__list a{max-width:100%}
+.footer-contact__list li>span,
+.footer-contact__list a>span{min-width:0;overflow-wrap:anywhere;word-break:break-word}
+@media (max-width:600px){
+  .footer-contact{grid-column:1/-1}
 }

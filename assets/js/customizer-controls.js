@@ -64,10 +64,10 @@
 					single: true
 				},
 				{
-					id: 'projects-page',
-					title: 'Projects Page Settings',
-					anchor: 'rivross_projects_page',
-					sections: [ 'rivross_projects_page' ],
+					id: 'services-page',
+					title: 'Services Page Settings',
+					anchor: 'rivross_services_page',
+					sections: [ 'rivross_services_page' ],
 					single: true
 				},
 				{

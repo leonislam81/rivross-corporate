@@ -6,7 +6,7 @@
  */
 ?></main>
 <footer class="site-footer" data-rivross-component="footer">
-	<?php if ( ! is_home() && ! is_page( array( 'about-us', 'about', 'our-companies', 'contact-us', 'management', 'careers', 'news-media', 'events', 'real-estate', 'projects', 'travel-tourism', 'tea-business', 'terms-and-conditions', 'privacy-policy' ) ) && ! is_page_template( array( 'page-about-us.php', 'page-about.php', 'page-our-companies.php', 'page-contact-us.php', 'page-management.php', 'page-careers.php', 'page-news-media.php', 'page-events.php', 'page-real-estate.php', 'page-projects.php', 'page-travel-tourism.php', 'page-tea-business.php', 'page-legal.php' ) ) && ! is_singular( 'rivross_event' ) && ! is_singular( 'rivross_property' ) && ! is_singular( 'rivross_project' ) && ! is_singular( 'rivross_job' ) && ! is_singular( 'post' ) ) : ?>
+	<?php if ( ! is_home() && ! is_page( array( 'about-us', 'about', 'our-companies', 'contact-us', 'management', 'careers', 'news-media', 'events', 'real-estate', 'projects', 'services', 'travel-tourism', 'tea-business', 'terms-and-conditions', 'privacy-policy' ) ) && ! is_page_template( array( 'page-about-us.php', 'page-about.php', 'page-our-companies.php', 'page-contact-us.php', 'page-management.php', 'page-careers.php', 'page-news-media.php', 'page-events.php', 'page-real-estate.php', 'page-projects.php', 'page-services.php', 'page-travel-tourism.php', 'page-tea-business.php', 'page-legal.php' ) ) && ! is_post_type_archive( 'rivross_service' ) && ! is_singular( 'rivross_event' ) && ! is_singular( 'rivross_property' ) && ! is_singular( 'rivross_project' ) && ! is_singular( 'rivross_service' ) && ! is_singular( 'rivross_job' ) && ! is_singular( 'post' ) ) : ?>
 	<section class="footer-cta">
 		<div class="rivross-container rivross-container--wide footer-cta__inner">
 			<div class="footer-cta__icon" aria-hidden="true"><?php echo rivross_icon( rivross_sanitize_icon_choice( get_theme_mod( 'rivross_footer_cta_icon', 'phone' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
@@ -82,7 +82,7 @@
 	<div class="footer-bottom">
 		<div class="rivross-container rivross-container--wide footer-bottom__inner">
 			<span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( get_theme_mod( 'rivross_footer_copyright', __( 'RIVROSS Company Limited. All Rights Reserved.', 'rivross-corporate' ) ) ); ?></span>
-			<span><?php echo esc_html( get_theme_mod( 'rivross_footer_bottom_note', __( 'Designed with Excellence for a Better Tomorrow', 'rivross-corporate' ) ) ); ?></span>
+			<span class="footer-bottom__developer"><?php esc_html_e( 'Designed & Developed by', 'rivross-corporate' ); ?> <a href="https://leonislam.com/" target="_blank" rel="noopener noreferrer">Leon Islam</a></span>
 		</div>
 	</div>
 </footer>

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RIVROSS_THEME_VERSION', '1.0.37' );
+define( 'RIVROSS_THEME_VERSION', '1.0.50' );
 
 require_once get_template_directory() . '/inc/partner-logos.php';
 require_once get_template_directory() . '/inc/customizer.php';
@@ -19,6 +19,7 @@ require_once get_template_directory() . '/inc/events.php';
 require_once get_template_directory() . '/inc/news-single.php';
 require_once get_template_directory() . '/inc/properties.php';
 require_once get_template_directory() . '/inc/projects.php';
+require_once get_template_directory() . '/inc/services.php';
 require_once get_template_directory() . '/inc/travel.php';
 require_once get_template_directory() . '/inc/tea.php';
 require_once get_template_directory() . '/inc/careers.php';
@@ -165,7 +166,7 @@ function rivross_cpt_media_admin_assets( $hook ) {
 		return;
 	}
 	$screen = get_current_screen();
-	$post_types = array( 'rivross_hero_slide', 'rivross_property', 'rivross_project', 'rivross_event', 'rivross_job', 'rivross_leader' );
+	$post_types = array( 'rivross_hero_slide', 'rivross_property', 'rivross_project', 'rivross_service', 'rivross_event', 'rivross_job', 'rivross_leader' );
 	if ( ! $screen || ! in_array( $screen->post_type, $post_types, true ) ) {
 		return;
 	}
@@ -406,6 +407,16 @@ function rivross_enqueue_assets() {
 		);
 	}
 
+	if ( is_post_type_archive( 'rivross_service' ) || is_page( 'services' ) || is_singular( 'rivross_service' ) ) {
+		$services_style = get_template_directory() . '/assets/css/services.css';
+		wp_enqueue_style(
+			'rivross-services',
+			get_template_directory_uri() . '/assets/css/services.css',
+			array( 'rivross-header-footer' ),
+			file_exists( $services_style ) ? filemtime( $services_style ) : RIVROSS_THEME_VERSION
+		);
+	}
+
 	if ( is_page( 'travel-tourism' ) || is_page_template( 'page-travel-tourism.php' ) ) {
 		$travel_style = get_template_directory() . '/assets/css/travel.css';
 		wp_enqueue_style(
@@ -548,7 +559,10 @@ function rivross_theme_link( $url ) {
 		return home_url( '/real-estate/' );
 	}
 	if ( in_array( strtolower( $url ), array( '#projects', strtolower( home_url( '/#projects' ) ) ), true ) ) {
-		return home_url( '/projects/' );
+		return home_url( '/services/' );
+	}
+	if ( in_array( strtolower( $url ), array( '#services', strtolower( home_url( '/#services' ) ) ), true ) ) {
+		return home_url( '/services/' );
 	}
 	if ( in_array( strtolower( $url ), array( '#open-positions', strtolower( home_url( '/#open-positions' ) ) ), true ) ) {
 		return home_url( '/careers/#open-positions' );
@@ -564,7 +578,7 @@ function rivross_primary_menu_fallback() {
 		__( 'Home', 'rivross-corporate' )          => home_url( '/' ),
 		__( 'About Us', 'rivross-corporate' )      => home_url( '/about-us/' ),
 		__( 'Our Companies', 'rivross-corporate' ) => home_url( '/our-companies/' ),
-		__( 'Projects', 'rivross-corporate' )      => home_url( '/projects/' ),
+		__( 'Services', 'rivross-corporate' )      => home_url( '/services/' ),
 		__( 'Management', 'rivross-corporate' )    => home_url( '/management/' ),
 		__( 'News & Media', 'rivross-corporate' )  => home_url( '/news-media/' ),
 		__( 'Contact Us', 'rivross-corporate' )    => home_url( '/contact-us/' ),
@@ -750,9 +764,9 @@ function rivross_remove_empty_menu_items( $items, $args ) {
 			$items,
 			static function ( $item ) use ( $args ) {
 				$title = strtolower( trim( wp_strip_all_tags( (string) $item->title ) ) );
-				if ( 'primary' === $args->theme_location && ( 'services' === $title || false !== strpos( strtolower( (string) $item->url ), '#services' ) ) ) {
-					return false;
-				}
+			if ( 'primary' === $args->theme_location && ( 'services' === $title && false !== strpos( strtolower( (string) $item->url ), '#services' ) ) ) {
+				return false;
+			}
 				return '' !== $title;
 			}
 		)
@@ -763,9 +777,11 @@ add_filter( 'wp_nav_menu_objects', 'rivross_remove_empty_menu_items', 5, 2 );
 function rivross_link_projects_menu_item( $items, $args ) {
 	if ( empty( $args->theme_location ) || ! in_array( $args->theme_location, array( 'primary', 'footer' ), true ) ) { return $items; }
 	foreach ( $items as $item ) {
-		if ( 'Projects' === trim( wp_strip_all_tags( $item->title ) ) && false !== strpos( (string) $item->url, '#projects' ) ) {
-			$item->url = home_url( '/projects/' );
-			if ( is_page( 'projects' ) || is_singular( 'rivross_project' ) ) { $item->classes[] = 'current-menu-item'; }
+		$title = strtolower( trim( wp_strip_all_tags( $item->title ) ) );
+		if ( 'projects' === $title || false !== strpos( strtolower( (string) $item->url ), '/projects/' ) || false !== strpos( strtolower( (string) $item->url ), '#projects' ) ) {
+			$item->title = __( 'Services', 'rivross-corporate' );
+			$item->url = home_url( '/services/' );
+			if ( is_post_type_archive( 'rivross_service' ) || is_page( 'services' ) || is_singular( 'rivross_service' ) ) { $item->classes[] = 'current-menu-item'; }
 		}
 	}
 	return $items;
@@ -779,7 +795,7 @@ function rivross_footer_menu_fallback() {
 		__( 'Our Companies', 'rivross-corporate' ) => home_url( '/our-companies/' ),
 		__( 'Real Estate', 'rivross-corporate' )     => home_url( '/real-estate/' ),
 		__( 'Management', 'rivross-corporate' )    => home_url( '/management/' ),
-		__( 'Projects', 'rivross-corporate' )      => home_url( '/projects/' ),
+		__( 'Services', 'rivross-corporate' )      => home_url( '/services/' ),
 		__( 'Careers', 'rivross-corporate' )       => home_url( '/careers/' ),
 		__( 'Contact Us', 'rivross-corporate' )    => home_url( '/contact-us/' ),
 	);
