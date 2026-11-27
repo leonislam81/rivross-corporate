@@ -38,16 +38,18 @@
 				</div>
 			</div>
 
-			<div class="footer-column">
+			<div class="footer-column footer-quick-links">
 				<h3><?php echo esc_html( get_theme_mod( 'rivross_footer_quick_links_title', __( 'Quick Links', 'rivross-corporate' ) ) ); ?></h3>
+				<span class="footer-quick-links__secondary-title"><?php esc_html_e( 'More Links', 'rivross-corporate' ); ?></span>
 				<?php wp_nav_menu( array( 'theme_location' => 'footer', 'menu_class' => 'footer-links', 'container' => false, 'fallback_cb' => 'rivross_footer_menu_fallback' ) ); ?>
 			</div>
 
-			<div class="footer-column">
+			<div class="footer-column footer-meta">
+				<div class="footer-meta__group">
 				<h3><?php echo esc_html( get_theme_mod( 'rivross_footer_businesses_title', __( 'Our Businesses', 'rivross-corporate' ) ) ); ?></h3>
 				<ul class="footer-links">
 					<?php
-					$footer_business_defaults = array( array( 'Real Estate', home_url( '/real-estate/' ) ), array( 'Travel & Tourism', home_url( '/travel-tourism/' ) ), array( 'Tea Business', home_url( '/tea-business/' ) ) );
+					$footer_business_defaults = array( array( 'Real Estate', home_url( '/real-estate/' ) ) );
 					foreach ( $footer_business_defaults as $index => $business ) :
 						$number = $index + 1;
 						$label  = get_theme_mod( 'rivross_footer_business_' . $number . '_label', $business[0] );
@@ -57,14 +59,14 @@
 					endforeach;
 					?>
 				</ul>
-			</div>
-
-			<div class="footer-column">
+				</div>
+				<div class="footer-meta__group">
 				<h3><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_title', __( 'Legal', 'rivross-corporate' ) ) ); ?></h3>
 				<ul class="footer-links">
 					<li><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_footer_legal_1_url', home_url( '/terms-and-conditions/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_1_label', __( 'Terms & Conditions', 'rivross-corporate' ) ) ); ?></a></li>
 					<li><a href="<?php echo esc_url( rivross_theme_link( get_theme_mod( 'rivross_footer_legal_2_url', home_url( '/privacy-policy/' ) ) ) ); ?>"><?php echo esc_html( get_theme_mod( 'rivross_footer_legal_2_label', __( 'Privacy Policy', 'rivross-corporate' ) ) ); ?></a></li>
 				</ul>
+				</div>
 			</div>
 
 			<div class="footer-column footer-contact">

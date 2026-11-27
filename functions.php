@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RIVROSS_THEME_VERSION', '1.0.50' );
+define( 'RIVROSS_THEME_VERSION', '1.0.51' );
 
 require_once get_template_directory() . '/inc/partner-logos.php';
 require_once get_template_directory() . '/inc/customizer.php';
@@ -395,6 +395,16 @@ function rivross_enqueue_assets() {
 			array( 'rivross-header-footer' ),
 			file_exists( $real_estate_style ) ? filemtime( $real_estate_style ) : RIVROSS_THEME_VERSION
 		);
+		if ( is_singular( 'rivross_property' ) ) {
+			$property_lightbox_script = get_template_directory() . '/assets/js/property-lightbox.js';
+			wp_enqueue_script(
+				'rivross-property-lightbox',
+				get_template_directory_uri() . '/assets/js/property-lightbox.js',
+				array(),
+				file_exists( $property_lightbox_script ) ? filemtime( $property_lightbox_script ) : RIVROSS_THEME_VERSION,
+				true
+			);
+		}
 	}
 
 	if ( is_page( 'projects' ) || is_page_template( 'page-projects.php' ) || is_singular( 'rivross_project' ) ) {
@@ -584,9 +594,7 @@ function rivross_primary_menu_fallback() {
 		__( 'Contact Us', 'rivross-corporate' )    => home_url( '/contact-us/' ),
 	);
 	$companies = array(
-		__( 'Tea Business', 'rivross-corporate' )   => home_url( '/tea-business/' ),
-		__( 'Travel & Tourism', 'rivross-corporate' ) => home_url( '/travel-tourism/' ),
-		__( 'Real Estate', 'rivross-corporate' )     => home_url( '/real-estate/' ),
+		__( 'Real Estate', 'rivross-corporate' ) => home_url( '/real-estate/' ),
 	);
 
 	echo '<ul class="site-nav__list">';
@@ -605,7 +613,7 @@ function rivross_primary_menu_fallback() {
 }
 
 /**
- * Group the three business pages beneath Our Companies in a saved WordPress menu.
+ * Keep only the Real Estate page beneath Our Companies in a saved WordPress menu.
  *
  * @param array    $items Menu items.
  * @param stdClass $args  Menu arguments.
@@ -618,21 +626,21 @@ function rivross_prepare_companies_submenu( $items, $args ) {
 
 	$parent       = null;
 	$parent_index = null;
-	$matches      = array( 'tea-business' => null, 'travel-tourism' => null, 'real-estate' => null );
+	$matches      = array( 'real-estate' => null );
 	$labels       = array(
-		'real-estate'    => __( 'Real Estate', 'rivross-corporate' ),
-		'travel-tourism' => __( 'Travel & Tourism', 'rivross-corporate' ),
-		'tea-business'   => __( 'Tea Business', 'rivross-corporate' ),
+		'real-estate' => __( 'Real Estate', 'rivross-corporate' ),
 	);
 	$urls = array(
-		'real-estate'    => home_url( '/real-estate/' ),
-		'travel-tourism' => home_url( '/travel-tourism/' ),
-		'tea-business'   => home_url( '/tea-business/' ),
+		'real-estate' => home_url( '/real-estate/' ),
 	);
 
 	foreach ( $items as $index => $item ) {
+		$item_url = strtolower( (string) $item->url );
+		if ( false !== strpos( $item_url, '/travel-tourism/' ) || false !== strpos( $item_url, '/tea-business/' ) ) {
+			continue;
+		}
 		$title = strtolower( trim( wp_strip_all_tags( (string) $item->title ) ) );
-		$url   = strtolower( (string) $item->url );
+		$url   = $item_url;
 		if ( null === $parent && ( 'our companies' === $title || false !== strpos( $url, '/our-companies/' ) ) ) {
 			$parent       = $item;
 			$parent_index = $index;
@@ -700,6 +708,10 @@ function rivross_prepare_companies_submenu( $items, $args ) {
 			continue;
 		}
 		if ( isset( $used_ids[ (string) $item->ID ] ) ) {
+			continue;
+		}
+		$item_url = strtolower( (string) $item->url );
+		if ( false !== strpos( $item_url, '/travel-tourism/' ) || false !== strpos( $item_url, '/tea-business/' ) ) {
 			continue;
 		}
 		$updated[] = $item;
@@ -859,6 +871,7 @@ function rivross_icon( $name, $class = '' ) {
 		'map'       => '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/>',
 		'image'     => '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6"/>',
 		'file'      => '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+		'play'      => '<path d="m9 7 8 5-8 5V7Z"/>',
 	);
 
 	if ( ! isset( $icons[ $name ] ) ) {
@@ -867,3 +880,7 @@ function rivross_icon( $name, $class = '' ) {
 
 	return '<svg class="rivross-icon ' . esc_attr( $class ) . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' . $icons[ $name ] . '</svg>';
 }
+
+
+
+

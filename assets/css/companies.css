@@ -106,6 +106,16 @@
   gap: 1.1rem;
 }
 
+/* The company portfolio now focuses on the Real Estate vertical. Keep the
+ * remaining card centered instead of stretching it across the full grid. */
+.companies-business-grid--single {
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+}
+
+.companies-business-grid--single .companies-business-card__media { min-height: 152px; }
+.companies-business-grid--single .companies-business-card__body { padding: 2.15rem 1.3rem 1.1rem; }
+
 .companies-business-card {
   display: flex;
   min-width: 0;
@@ -283,7 +293,9 @@
 @media (max-width: 900px) {
   .companies-hero::after { left: 55%; }
   .companies-business-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .companies-business-grid--single { grid-template-columns: minmax(0, 680px); }
   .companies-business-card:last-child { grid-column: 1 / -1; max-width: calc(50% - 0.55rem); justify-self: center; }
+  .companies-business-grid.companies-business-grid--single .companies-business-card:last-child { grid-column: auto; max-width: none; }
   .companies-inquiry { grid-template-columns: auto minmax(0, 1fr); }
   .companies-inquiry .rivross-button { grid-column: 2; justify-self: start; }
 }
@@ -296,8 +308,11 @@
   .companies-hero h1 { font-size: clamp(3rem, 16vw, 4rem); }
   .companies-hero p { max-width: 340px; font-size: 0.84rem; }
   .companies-business-grid { grid-template-columns: 1fr; }
+  .companies-business-grid--single { grid-template-columns: 1fr; }
   .companies-business-card:last-child { grid-column: auto; max-width: none; }
   .companies-business-card__media { min-height: 190px; }
+  .companies-business-grid--single .companies-business-card__media { min-height: 170px; }
+  .companies-business-grid--single .companies-business-card__body { padding: 2.35rem 1.15rem 1.1rem; }
   .companies-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .companies-stat { min-height: 125px; }
   .companies-stat:nth-child(2) { border-right: 0; }

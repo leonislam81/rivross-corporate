@@ -18,7 +18,11 @@ $hero_description = str_replace( '\\n', "\n", (string) get_theme_mod( 'rivross_a
 
 $intro_eyebrow      = get_theme_mod( 'rivross_about_intro_eyebrow', __( 'Who We Are', 'rivross-corporate' ) );
 $intro_title        = str_replace( '\\n', "\n", (string) get_theme_mod( 'rivross_about_intro_title', __( "Building Businesses.\nCreating Opportunities.", 'rivross-corporate' ) ) );
-$intro_paragraph_1  = get_theme_mod( 'rivross_about_intro_paragraph_1', __( 'RIVROSS Company Limited is a diversified business organization operating across Real Estate, Travel & Tourism, Tea Business and future business ventures.', 'rivross-corporate' ) );
+$intro_paragraph_1_default = __( 'RIVROSS Company Limited is a real estate-focused organization delivering property development, sales, investment and building services.', 'rivross-corporate' );
+$intro_paragraph_1  = get_theme_mod( 'rivross_about_intro_paragraph_1', $intro_paragraph_1_default );
+if ( preg_match( '/travel\s*&?\s*tourism|tea\s+business/i', (string) $intro_paragraph_1 ) ) {
+	$intro_paragraph_1 = $intro_paragraph_1_default;
+}
 $intro_paragraph_2  = get_theme_mod( 'rivross_about_intro_paragraph_2', __( 'Our goal is to deliver sustainable growth, professional service and long-term partnerships while creating value for our clients, partners and the communities we serve.', 'rivross-corporate' ) );
 $intro_button_label = get_theme_mod( 'rivross_about_intro_button_label', __( 'Download Corporate Profile', 'rivross-corporate' ) );
 $intro_button_url   = get_theme_mod( 'rivross_about_intro_button_url', '#contact' );
@@ -37,8 +41,6 @@ foreach ( array( 'facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'youtube' =
 
 $about_expertise = array(
 	array( 'building', 'Real Estate', 'Property development, sales and investment opportunities shaped around long-term value.', home_url( '/real-estate/' ) ),
-	array( 'plane', 'Travel & Tourism', 'Air ticketing, hotel booking, tour packages and corporate travel support.', home_url( '/travel-tourism/' ) ),
-	array( 'leaf', 'Tea Business', 'Thoughtful sourcing and dependable supply from Bangladesh to growing markets.', home_url( '/tea-business/' ) ),
 	array( 'ruler', 'Building Services', 'Doors, tiles & ceramics, interior, plumbing and finishing support for better spaces.', get_post_type_archive_link( 'rivross_service' ) ? get_post_type_archive_link( 'rivross_service' ) : home_url( '/services/' ) ),
 );
 
@@ -61,8 +63,8 @@ $values = array(
 $journey = array(
 	array( 'building', '2010', 'Foundation', 'RIVROSS Company Limited was founded with a vision to build lasting value.' ),
 	array( 'handshake', '2012', 'First Partnerships', 'Established strategic partnerships and expanded our business network.' ),
-	array( 'building', '2015', 'Business Expansion', 'Expanded into Real Estate and Travel & Tourism sectors.' ),
-	array( 'leaf', '2018', 'Tea Business', 'Ventured into Tea Business to diversify and strengthen our portfolio.' ),
+	array( 'building', '2015', 'Real Estate Growth', 'Expanded our real estate development, sales and investment capabilities.' ),
+	array( 'ruler', '2018', 'Service Expansion', 'Added building services to support complete property and project needs.' ),
 	array( 'globe', '2021', 'Regional Growth', 'Strengthened our presence across Bangladesh and beyond.' ),
 	array( 'award', '2024+', 'Looking Ahead', 'Continuing our journey towards sustainable growth.' ),
 );
@@ -158,7 +160,7 @@ $dynamic_leaders         = $dynamic_leaders_enabled && function_exists( 'rivross
 		<div class="about-section__heading about-expertise__heading">
 			<span class="rivross-eyebrow"><?php esc_html_e( 'Our Experience', 'rivross-corporate' ); ?></span>
 			<h2><?php esc_html_e( 'One group. Multiple ways to create value.', 'rivross-corporate' ); ?></h2>
-			<p><?php esc_html_e( 'From property and travel to tea and building services, our experience connects people, products and possibilities.', 'rivross-corporate' ); ?></p>
+			<p><?php esc_html_e( 'From property development to building services, our experience connects people, products and possibilities.', 'rivross-corporate' ); ?></p>
 		</div>
 		<div class="about-expertise__grid">
 			<?php foreach ( $about_expertise as $index => $expertise ) : ?>
@@ -191,7 +193,7 @@ $dynamic_leaders         = $dynamic_leaders_enabled && function_exists( 'rivross
 		<div class="about-section__heading"><span class="rivross-eyebrow"><?php echo esc_html( get_theme_mod( 'rivross_about_journey_eyebrow', __( 'Our Journey', 'rivross-corporate' ) ) ); ?></span><h2><?php echo esc_html( get_theme_mod( 'rivross_about_journey_title', __( 'Milestones of Growth', 'rivross-corporate' ) ) ); ?></h2></div>
 		<div class="about-journey__track">
 			<?php foreach ( $journey as $index => $milestone ) : $number = $index + 1; ?>
-				<?php $milestone[0] = get_theme_mod( 'rivross_about_journey_' . $number . '_icon', $milestone[0] ); $milestone[1] = get_theme_mod( 'rivross_about_journey_' . $number . '_year', $milestone[1] ); $milestone[2] = get_theme_mod( 'rivross_about_journey_' . $number . '_title', $milestone[2] ); $milestone[3] = get_theme_mod( 'rivross_about_journey_' . $number . '_description', $milestone[3] ); ?>
+				<?php $milestone[0] = get_theme_mod( 'rivross_about_journey_' . $number . '_icon', $milestone[0] ); $milestone[1] = get_theme_mod( 'rivross_about_journey_' . $number . '_year', $milestone[1] ); $milestone[2] = get_theme_mod( 'rivross_about_journey_' . $number . '_title', $milestone[2] ); $milestone[3] = get_theme_mod( 'rivross_about_journey_' . $number . '_description', $milestone[3] ); if ( preg_match( '/travel\s*&?\s*tourism|tea\s+business/i', (string) $milestone[2] . ' ' . (string) $milestone[3] ) ) { $milestone[0] = $journey[ $index ][0]; $milestone[1] = $journey[ $index ][1]; $milestone[2] = $journey[ $index ][2]; $milestone[3] = $journey[ $index ][3]; } ?>
 				<article class="about-milestone"><div class="about-milestone__icon"><?php echo rivross_icon( rivross_sanitize_icon_choice( $milestone[0] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><span class="about-milestone__year"><?php echo esc_html( $milestone[1] ); ?></span><h3><?php echo esc_html( $milestone[2] ); ?></h3><p><?php echo esc_html( $milestone[3] ); ?></p></article>
 			<?php endforeach; ?>
 		</div>

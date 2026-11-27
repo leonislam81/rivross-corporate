@@ -9,7 +9,10 @@ get_header();
 
 $page_url = get_permalink();
 $assets   = get_theme_file_uri( '/assets/images/' );
-$hero_image = get_theme_mod( 'rivross_real_estate_hero_image', $assets . 'real-estate/real-estate-hero.png' );
+$partner_data_file = get_template_directory() . '/data/partner-properties.json';
+$partner_data      = file_exists( $partner_data_file ) ? json_decode( (string) file_get_contents( $partner_data_file ), true ) : array();
+$partner_hero      = ! empty( $partner_data[0]['hero_image'] ) ? $partner_data[0]['hero_image'] : $assets . 'real-estate/real-estate-hero.png';
+$hero_image        = get_theme_mod( 'rivross_real_estate_hero_image', $partner_hero );
 $search_term = isset( $_GET['property_s'] ) ? sanitize_text_field( wp_unslash( $_GET['property_s'] ) ) : '';
 $location   = isset( $_GET['property_location'] ) ? sanitize_text_field( wp_unslash( $_GET['property_location'] ) ) : '';
 $type       = isset( $_GET['property_type'] ) ? sanitize_title( wp_unslash( $_GET['property_type'] ) ) : '';
@@ -30,7 +33,7 @@ if ( $status ) { $query_args['meta_query'][] = array( 'key' => '_rivross_propert
 if ( $type ) { $query_args['tax_query'] = array( array( 'taxonomy' => 'rivross_property_type', 'field' => 'slug', 'terms' => $type ) ); }
 if ( 'price-low' === $sort ) { $query_args['meta_key'] = '_rivross_property_price_value'; $query_args['orderby'] = 'meta_value_num'; $query_args['order'] = 'ASC'; }
 elseif ( 'price-high' === $sort ) { $query_args['meta_key'] = '_rivross_property_price_value'; $query_args['orderby'] = 'meta_value_num'; $query_args['order'] = 'DESC'; }
-else { $query_args['orderby'] = 'date'; $query_args['order'] = 'DESC'; }
+else { $query_args['meta_key'] = '_rivross_property_sort_order'; $query_args['orderby'] = 'meta_value_num'; $query_args['order'] = 'ASC'; }
 $properties = new WP_Query( $query_args );
 $filter_url = static function ( $overrides = array() ) use ( $page_url, $search_term, $location, $type, $status, $sort ) {
 	$args = array( 'property_s' => $search_term, 'property_location' => $location, 'property_type' => $type, 'property_status' => $status, 'property_sort' => $sort );
@@ -57,7 +60,7 @@ $why_items = array(
 	<section class="property-filters"><div class="rivross-container rivross-container--wide"><form method="get" action="<?php echo esc_url( $page_url ); ?>" class="property-filters__form">
 		<label><span><?php esc_html_e( 'Location', 'rivross-corporate' ); ?></span><select name="property_location"><option value=""><?php esc_html_e( 'All Locations', 'rivross-corporate' ); ?></option><?php foreach ( $locations as $item ) : ?><option value="<?php echo esc_attr( $item ); ?>" <?php selected( $location, $item ); ?>><?php echo esc_html( $item ); ?></option><?php endforeach; ?></select></label>
 		<label><span><?php esc_html_e( 'Property Type', 'rivross-corporate' ); ?></span><select name="property_type"><option value=""><?php esc_html_e( 'All Types', 'rivross-corporate' ); ?></option><?php foreach ( $types as $term ) : ?><option value="<?php echo esc_attr( $term->slug ); ?>" <?php selected( $type, $term->slug ); ?>><?php echo esc_html( $term->name ); ?></option><?php endforeach; ?></select></label>
-		<label><span><?php esc_html_e( 'Status', 'rivross-corporate' ); ?></span><select name="property_status"><option value=""><?php esc_html_e( 'All Status', 'rivross-corporate' ); ?></option><?php foreach ( array( 'Ongoing', 'Upcoming', 'Completed', 'Ready' ) as $item ) : ?><option value="<?php echo esc_attr( $item ); ?>" <?php selected( $status, $item ); ?>><?php echo esc_html( $item ); ?></option><?php endforeach; ?></select></label>
+		<label><span><?php esc_html_e( 'Status', 'rivross-corporate' ); ?></span><select name="property_status"><option value=""><?php esc_html_e( 'All Status', 'rivross-corporate' ); ?></option><?php foreach ( array( 'Ongoing', 'Upcoming', 'Completed', 'Ready', 'Handover' ) as $item ) : ?><option value="<?php echo esc_attr( $item ); ?>" <?php selected( $status, $item ); ?>><?php echo esc_html( $item ); ?></option><?php endforeach; ?></select></label>
 		<label><span><?php esc_html_e( 'Price Range', 'rivross-corporate' ); ?></span><select name="property_sort"><option value="latest" <?php selected( $sort, 'latest' ); ?>><?php esc_html_e( 'Latest', 'rivross-corporate' ); ?></option><option value="price-low" <?php selected( $sort, 'price-low' ); ?>><?php esc_html_e( 'Price: Low to High', 'rivross-corporate' ); ?></option><option value="price-high" <?php selected( $sort, 'price-high' ); ?>><?php esc_html_e( 'Price: High to Low', 'rivross-corporate' ); ?></option></select></label>
 		<label class="property-filters__search"><span><?php esc_html_e( 'Search', 'rivross-corporate' ); ?></span><input type="search" name="property_s" value="<?php echo esc_attr( $search_term ); ?>" placeholder="<?php esc_attr_e( 'Search properties...', 'rivross-corporate' ); ?>"></label><button class="rivross-button" type="submit"><?php esc_html_e( 'Search Properties', 'rivross-corporate' ); ?> <?php echo rivross_icon( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 	</form></div></section>

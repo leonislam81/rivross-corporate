@@ -6,6 +6,148 @@
 		return Number.isFinite( number ) && number > 0 ? number : fallback;
 	}
 
+	/*
+	 * Keep the partner logos moving as one continuous rail. The original set is
+	 * followed by an inert clone set, so the loop can reset without exposing a
+	 * blank gap or a partially rendered final card.
+	 */
+	function initPartnerMarquee( root ) {
+		var viewport = root.querySelector( root.dataset.viewportSelector || '.partners-carousel__viewport' );
+		var track = root.querySelector( root.dataset.trackSelector || '.partners-carousel__track' );
+		var slideSelector = root.dataset.slideSelector || '.partners-carousel__slide';
+		var slides = track ? Array.prototype.slice.call( track.querySelectorAll( slideSelector ) ) : [];
+		var dots = root.querySelector( '.carousel-dots' );
+		var previous = root.querySelector( root.dataset.previousSelector || '.partners-carousel__control--prev' );
+		var next = root.querySelector( root.dataset.nextSelector || '.partners-carousel__control--next' );
+		var animationFrame = null;
+		var resizeTimer = null;
+		var lastTime = null;
+		var offset = 0;
+		var loopDistance = 0;
+		var paused = false;
+		var reducedMotion = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+
+		if ( ! viewport || ! track || slides.length < 2 ) {
+			return;
+		}
+
+		function getPerView() {
+			var width = window.innerWidth || document.documentElement.clientWidth;
+			if ( width <= 600 ) {
+				return Math.min( slides.length, toNumber( root.dataset.mobile, 2 ) );
+			}
+			if ( width <= 1100 ) {
+				return Math.min( slides.length, toNumber( root.dataset.tablet, 4 ) );
+			}
+			return Math.min( slides.length, toNumber( root.dataset.desktop, 5 ) );
+		}
+
+		function setVisibleState() {
+			Array.prototype.forEach.call( track.children, function ( slide, index ) {
+				var clone = '1' === slide.dataset.rivrossMarqueeClone;
+				slide.setAttribute( 'aria-hidden', clone ? 'true' : 'false' );
+				slide.inert = clone;
+				slide.classList.toggle( 'is-visible', ! clone && index < getPerView() );
+			} );
+		}
+
+		function rebuild() {
+			track.style.transition = 'none';
+			track.style.transform = 'translate3d(0, 0, 0)';
+			track.style.setProperty( '--rivross-carousel-per-view', String( getPerView() ) );
+			offset = 0;
+			lastTime = null;
+			Array.prototype.slice.call( track.querySelectorAll( '[data-rivross-marquee-clone="1"]' ) ).forEach( function ( clone ) {
+				track.removeChild( clone );
+			} );
+			slides.forEach( function ( slide ) {
+				track.appendChild( slide );
+			} );
+			slides.forEach( function ( slide ) {
+				var clone = slide.cloneNode( true );
+				clone.dataset.rivrossMarqueeClone = '1';
+				clone.removeAttribute( 'id' );
+				track.appendChild( clone );
+			} );
+			/* Let flex calculate the card widths before measuring the reset point. */
+			window.requestAnimationFrame( function () {
+				var firstOriginal = slides[ 0 ];
+				var firstClone = track.querySelector( '[data-rivross-marquee-clone="1"]' );
+				loopDistance = firstOriginal && firstClone ? firstClone.getBoundingClientRect().left - firstOriginal.getBoundingClientRect().left : 0;
+				setVisibleState();
+			} );
+		}
+
+		function frame( time ) {
+			if ( null === lastTime ) {
+				lastTime = time;
+			}
+			var elapsed = Math.min( 80, time - lastTime );
+			lastTime = time;
+			if ( ! paused && ! reducedMotion && loopDistance > 0 ) {
+				offset += ( ( window.innerWidth || document.documentElement.clientWidth ) <= 600 ? 18 : 28 ) * elapsed / 1000;
+				if ( offset >= loopDistance ) {
+					offset -= loopDistance;
+				}
+				track.style.transform = 'translate3d(-' + offset.toFixed( 2 ) + 'px, 0, 0)';
+			}
+			animationFrame = window.requestAnimationFrame( frame );
+		}
+
+		function stop() {
+			if ( animationFrame ) {
+				window.cancelAnimationFrame( animationFrame );
+				animationFrame = null;
+			}
+		}
+
+		function pause() {
+			paused = true;
+		}
+
+		function resume() {
+			paused = false;
+			lastTime = null;
+		}
+
+		if ( previous ) {
+			previous.hidden = true;
+		}
+		if ( next ) {
+			next.hidden = true;
+		}
+		if ( dots ) {
+			dots.hidden = true;
+		}
+		root.classList.add( 'partners-carousel--marquee-ready' );
+		root.addEventListener( 'mouseenter', pause );
+		root.addEventListener( 'mouseleave', resume );
+		root.addEventListener( 'focusin', pause );
+		root.addEventListener( 'focusout', function ( event ) {
+			if ( ! root.contains( event.relatedTarget ) ) {
+				resume();
+			}
+		} );
+		viewport.addEventListener( 'pointerdown', pause );
+		viewport.addEventListener( 'pointerup', resume );
+		viewport.addEventListener( 'pointercancel', resume );
+		window.addEventListener( 'resize', function () {
+			window.clearTimeout( resizeTimer );
+			resizeTimer = window.setTimeout( rebuild, 150 );
+		} );
+		document.addEventListener( 'visibilitychange', function () {
+			if ( document.hidden ) {
+				stop();
+			} else if ( ! animationFrame ) {
+				lastTime = null;
+				animationFrame = window.requestAnimationFrame( frame );
+			}
+		} );
+
+		rebuild();
+		animationFrame = window.requestAnimationFrame( frame );
+	}
+
 	function initCarousel( root ) {
 		var viewportSelector = root.dataset.viewportSelector || '.leadership-carousel__viewport';
 		var trackSelector = root.dataset.trackSelector || '.leadership-carousel__track';
@@ -24,6 +166,7 @@
 		var previous = root.querySelector( previousSelector );
 		var next = root.querySelector( nextSelector );
 		var enabled = root.dataset.enabled !== '0';
+		var loopWhenFull = root.dataset.loopFull === '1';
 		var autoplay = root.dataset.autoplay === '1';
 		var showArrows = root.dataset.showArrows === '1';
 		var showDots = root.dataset.showDots !== '0';
@@ -35,6 +178,7 @@
 		var resizeTimer = null;
 		var pointerStart = null;
 		var isAnimating = false;
+		var loopClones = [];
 		var transitionMs = 560;
 
 		if ( ! track || ! slides.length ) {
@@ -53,6 +197,30 @@
 
 		function getSlides() {
 			return Array.prototype.slice.call( track.children );
+		}
+
+		function rebuildLoopClones() {
+			loopClones.forEach( function ( clone ) {
+				if ( clone.parentNode === track ) {
+					track.removeChild( clone );
+				}
+			} );
+			loopClones = [];
+
+			/* Restore the original order before adding a seamless second set. */
+			slides.forEach( function ( slide ) {
+				track.appendChild( slide );
+			} );
+
+			if ( loopWhenFull && perView >= slides.length && slides.length > 1 ) {
+				slides.forEach( function ( slide ) {
+					var clone = slide.cloneNode( true );
+					clone.dataset.rivrossSlideClone = '1';
+					clone.dataset.rivrossSlideIndex = slide.dataset.rivrossSlideIndex;
+					loopClones.push( clone );
+					track.appendChild( clone );
+				} );
+			}
 		}
 
 		function getPerView() {
@@ -138,7 +306,8 @@
 
 		function recalculate() {
 			perView = getPerView();
-			pageCount = slides.length > perView ? slides.length : 1;
+			rebuildLoopClones();
+			pageCount = slides.length > perView || ( loopWhenFull && slides.length > 1 ) ? slides.length : 1;
 			resetPosition();
 			buildDots();
 			update();
@@ -214,6 +383,9 @@
 			}
 
 			var ordered = slides.slice( target ).concat( slides.slice( 0, target ) );
+			if ( loopClones.length ) {
+				ordered = ordered.concat( loopClones );
+			}
 			ordered.forEach( function ( slide ) {
 				track.appendChild( slide );
 			} );
@@ -378,6 +550,12 @@
 		start();
 	}
 
-	document.querySelectorAll( '[data-rivross-carousel]' ).forEach( initCarousel );
+	document.querySelectorAll( '[data-rivross-carousel]' ).forEach( function ( root ) {
+		if ( root.classList.contains( 'partners-carousel--marquee' ) ) {
+			initPartnerMarquee( root );
+		} else {
+			initCarousel( root );
+		}
+	} );
 	document.querySelectorAll( '[data-business-images]' ).forEach( initBusinessImageCarousel );
 }() );

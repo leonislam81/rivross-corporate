@@ -18,26 +18,6 @@ $hero_description = str_replace( '\\n', "\n", (string) get_theme_mod( 'rivross_c
 
 $businesses = array(
 	array(
-		'settings' => 3,
-		'image'    => 'business-tea.png',
-		'icon'     => 'leaf',
-		'title'    => 'Tea Business',
-		'description' => 'Delivering the finest quality tea sourced from the best gardens of Bangladesh to local and international markets.',
-		'features' => array( 'Tea Sourcing', 'Wholesale Supply', 'Distribution', 'Corporate Supply' ),
-		'button'   => 'Explore Tea Business',
-		'url'      => '#tea',
-	),
-	array(
-		'settings' => 2,
-		'image'    => 'business-travel.png',
-		'icon'     => 'plane',
-		'title'    => 'Travel & Tourism',
-		'description' => 'We offer comprehensive travel solutions and unforgettable experiences around the world with reliability and care.',
-		'features' => array( 'Air Ticketing', 'Hotel Booking', 'Tour Packages', 'Hajj & Umrah', 'Corporate Travel' ),
-		'button'   => 'Explore Travel & Tourism',
-		'url'      => '#travel',
-	),
-	array(
 		'settings' => 1,
 		'image'    => 'business-real-estate.png',
 		'icon'     => 'building',
@@ -87,7 +67,7 @@ $cta_url         = get_theme_mod( 'rivross_companies_cta_button_url', '#contact'
 				<p><?php echo esc_html( get_theme_mod( 'rivross_companies_intro_description', __( 'Our diverse business portfolio allows us to create value across industries and deliver sustainable growth for our clients, partners and communities.', 'rivross-corporate' ) ) ); ?></p>
 			</div>
 
-			<div class="companies-business-grid">
+			<div class="companies-business-grid companies-business-grid--single">
 				<?php foreach ( $businesses as $index => $business ) : $display_number = $index + 1; $number = $business['settings']; ?>
 					<?php
 					$image       = get_theme_mod( 'rivross_companies_business_' . $number . '_image', $image_uri . $business['image'] );

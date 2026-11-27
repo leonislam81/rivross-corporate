@@ -550,7 +550,7 @@ function rivross_customize_register( $wp_customize ) {
 		'rivross_home_services',
 		array(
 			'title'       => __( 'Home — Why RIVROSS & Services', 'rivross-corporate' ),
-			'description' => __( 'Edit the Why Choose RIVROSS items and the six travel service tiles, including their icons and links.', 'rivross-corporate' ),
+			'description' => __( 'Edit the Why Choose RIVROSS items. Homepage service cards are managed from the Services dashboard.', 'rivross-corporate' ),
 			'panel'       => 'rivross_theme_settings',
 			'priority'    => 30,
 		)
@@ -570,26 +570,6 @@ function rivross_customize_register( $wp_customize ) {
 		$number = $index + 1;
 		rivross_add_theme_control( $wp_customize, 'rivross_home_why_' . $number . '_icon', $why[0], sprintf( __( 'Why Item %d Icon', 'rivross-corporate' ), $number ), 'rivross_home_services', 'select', 'rivross_sanitize_icon_choice', array( 'choices' => rivross_icon_choices() ) );
 		rivross_add_theme_control( $wp_customize, 'rivross_home_why_' . $number . '_label', $why[1], sprintf( __( 'Why Item %d Label', 'rivross-corporate' ), $number ), 'rivross_home_services' );
-	}
-
-	$service_defaults = array(
-		array( 'plane', 'Air Ticket', '#travel' ),
-		array( 'hotel', 'Hotel Booking', '#travel' ),
-		array( 'suitcase', 'Tour Packages', '#travel' ),
-		array( 'kaaba', 'Hajj & Umrah', '#travel' ),
-		array( 'briefcase', 'Corporate Travel', '#travel' ),
-		array( 'globe', 'Visa Assistance', '#travel' ),
-	);
-
-	rivross_add_theme_control( $wp_customize, 'rivross_home_services_title', 'Travel Services', __( 'Services Section Title', 'rivross-corporate' ), 'rivross_home_services' );
-	rivross_add_theme_control( $wp_customize, 'rivross_home_services_view_all_label', 'View All Services', __( 'Services View-All Label', 'rivross-corporate' ), 'rivross_home_services' );
-	rivross_add_theme_control( $wp_customize, 'rivross_home_services_view_all_url', '#travel', __( 'Services View-All URL', 'rivross-corporate' ), 'rivross_home_services', 'url', 'esc_url_raw' );
-
-	foreach ( $service_defaults as $index => $service ) {
-		$number = $index + 1;
-		rivross_add_theme_control( $wp_customize, 'rivross_home_service_' . $number . '_icon', $service[0], sprintf( __( 'Service %d Icon', 'rivross-corporate' ), $number ), 'rivross_home_services', 'select', 'rivross_sanitize_icon_choice', array( 'choices' => rivross_icon_choices() ) );
-		rivross_add_theme_control( $wp_customize, 'rivross_home_service_' . $number . '_label', $service[1], sprintf( __( 'Service %d Label', 'rivross-corporate' ), $number ), 'rivross_home_services' );
-		rivross_add_theme_control( $wp_customize, 'rivross_home_service_' . $number . '_url', $service[2], sprintf( __( 'Service %d URL', 'rivross-corporate' ), $number ), 'rivross_home_services', 'url', 'esc_url_raw' );
 	}
 
 	$wp_customize->add_section(
@@ -807,7 +787,7 @@ function rivross_customize_register( $wp_customize ) {
 	$about_intro_fields = array(
 		'rivross_about_intro_eyebrow'       => array( 'Who We Are', __( 'Intro Eyebrow', 'rivross-corporate' ) ),
 		'rivross_about_intro_title'         => array( "Building Businesses.\nCreating Opportunities.", __( 'Intro Title', 'rivross-corporate' ) ),
-		'rivross_about_intro_paragraph_1'   => array( 'RIVROSS Company Limited is a diversified business organization operating across Real Estate, Travel & Tourism, Tea Business and future business ventures.', __( 'Intro Paragraph 1', 'rivross-corporate' ) ),
+	'rivross_about_intro_paragraph_1'   => array( 'RIVROSS Company Limited is a real estate-focused organization delivering property development, sales, investment and building services.', __( 'Intro Paragraph 1', 'rivross-corporate' ) ),
 		'rivross_about_intro_paragraph_2'   => array( 'Our goal is to deliver sustainable growth, professional service and long-term partnerships while creating value for our clients, partners and the communities we serve.', __( 'Intro Paragraph 2', 'rivross-corporate' ) ),
 		'rivross_about_intro_button_label'  => array( 'Download Corporate Profile', __( 'Intro Button Label', 'rivross-corporate' ) ),
 		'rivross_about_intro_button_url'    => array( '#contact', __( 'Intro Button URL', 'rivross-corporate' ) ),
@@ -858,8 +838,8 @@ function rivross_customize_register( $wp_customize ) {
 	$about_journey = array(
 		array( 'building', '2010', 'Foundation', 'RIVROSS Company Limited was founded with a vision to build lasting value.' ),
 		array( 'handshake', '2012', 'First Partnerships', 'Established strategic partnerships and expanded our business network.' ),
-		array( 'building', '2015', 'Business Expansion', 'Expanded into Real Estate and Travel & Tourism sectors.' ),
-		array( 'leaf', '2018', 'Tea Business', 'Ventured into Tea Business to diversify and strengthen our portfolio.' ),
+		array( 'building', '2015', 'Real Estate Growth', 'Expanded our real estate development, sales and investment capabilities.' ),
+		array( 'ruler', '2018', 'Service Expansion', 'Added building services to support complete property and project needs.' ),
 		array( 'globe', '2021', 'Regional Growth', 'Strengthened our presence across Bangladesh and beyond.' ),
 		array( 'award', '2024+', 'Looking Ahead', 'Continuing our journey towards sustainable growth.' ),
 	);
@@ -1713,8 +1693,6 @@ function rivross_customize_register( $wp_customize ) {
 
 	$footer_business_defaults = array(
 		array( 'Real Estate', home_url( '/real-estate/' ) ),
-		array( 'Travel & Tourism', home_url( '/travel-tourism/' ) ),
-		array( 'Tea Business', home_url( '/tea-business/' ) ),
 	);
 	foreach ( $footer_business_defaults as $index => $business ) {
 		$number = $index + 1;
@@ -1775,3 +1753,4 @@ function rivross_customizer_css() {
 	wp_add_inline_style( 'rivross-style', $css );
 }
 add_action( 'wp_enqueue_scripts', 'rivross_customizer_css', 20 );
+

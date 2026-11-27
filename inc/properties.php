@@ -56,13 +56,21 @@ function rivross_property_fields() {
 		'bedrooms' => array( 'label' => __( 'Bedrooms', 'rivross-corporate' ), 'type' => 'text' ),
 		'bathrooms' => array( 'label' => __( 'Bathrooms', 'rivross-corporate' ), 'type' => 'text' ),
 		'parking' => array( 'label' => __( 'Parking', 'rivross-corporate' ), 'type' => 'text' ),
-		'status' => array( 'label' => __( 'Project Status', 'rivross-corporate' ), 'type' => 'select', 'options' => array( 'Ongoing', 'Upcoming', 'Completed', 'Ready' ) ),
+		'status' => array( 'label' => __( 'Project Status', 'rivross-corporate' ), 'type' => 'select', 'options' => array( 'Ongoing', 'Upcoming', 'Completed', 'Ready', 'Handover' ) ),
 		'price' => array( 'label' => __( 'Price', 'rivross-corporate' ), 'type' => 'text' ),
 		'price_value' => array( 'label' => __( 'Price Numeric Value (for sorting)', 'rivross-corporate' ), 'type' => 'number' ),
 		'handover' => array( 'label' => __( 'Handover', 'rivross-corporate' ), 'type' => 'text' ),
+		'sort_order' => array( 'label' => __( 'Display Order', 'rivross-corporate' ), 'type' => 'number' ),
 		'image' => array( 'label' => __( 'Property Image', 'rivross-corporate' ), 'type' => 'url' ),
+		'hero_image' => array( 'label' => __( 'Hero Image', 'rivross-corporate' ), 'type' => 'url' ),
+		'at_a_glance_image' => array( 'label' => __( 'At-a-Glance Image', 'rivross-corporate' ), 'type' => 'url' ),
+		'floor_plan' => array( 'label' => __( 'Floor Plan Image', 'rivross-corporate' ), 'type' => 'url' ),
+		'at_a_glance' => array( 'label' => __( 'At-a-Glance Specifications', 'rivross-corporate' ), 'type' => 'textarea' ),
+		'amenities' => array( 'label' => __( 'Features & Amenities', 'rivross-corporate' ), 'type' => 'textarea' ),
 		'gallery' => array( 'label' => __( 'Gallery Images', 'rivross-corporate' ), 'type' => 'textarea' ),
 		'map_url' => array( 'label' => __( 'Map Location URL', 'rivross-corporate' ), 'type' => 'url' ),
+		'video_url' => array( 'label' => __( 'Video Tour URL', 'rivross-corporate' ), 'type' => 'url' ),
+		'source_url' => array( 'label' => __( 'Partner Source URL', 'rivross-corporate' ), 'type' => 'url' ),
 		'brochure_url' => array( 'label' => __( 'Brochure Download URL', 'rivross-corporate' ), 'type' => 'url' ),
 		'inquiry_url' => array( 'label' => __( 'Contact / Inquiry URL', 'rivross-corporate' ), 'type' => 'url' ),
 	);
@@ -103,10 +111,10 @@ function rivross_render_property_meta_box( $post ) {
 			if ( 'gallery' === $key ) {
 				echo '<textarea class="large-text rivross-media-input rivross-media-gallery" rows="3" id="rivross_property_' . esc_attr( $key ) . '" name="rivross_property_' . esc_attr( $key ) . '">' . esc_textarea( $value ) . '</textarea><p><button type="button" class="button rivross-media-button" data-target="rivross_property_' . esc_attr( $key ) . '" data-multiple="1">' . esc_html__( 'Choose / Upload Images', 'rivross-corporate' ) . '</button> <button type="button" class="button rivross-media-clear" data-target="rivross_property_' . esc_attr( $key ) . '">' . esc_html__( 'Clear Gallery', 'rivross-corporate' ) . '</button></p><div class="rivross-media-preview" data-preview-for="rivross_property_' . esc_attr( $key ) . '" style="display:none;max-width:600px;margin-top:8px;"></div><p class="description">' . esc_html__( 'Select multiple images from the Media Library or upload new ones. A thumbnail preview appears here, and one image URL is kept per line.', 'rivross-corporate' ) . '</p>';
 			} else {
-				echo '<textarea class="large-text" rows="3" id="rivross_property_' . esc_attr( $key ) . '" name="rivross_property_' . esc_attr( $key ) . '">' . esc_textarea( $value ) . '</textarea>';
+				echo '<textarea class="large-text" rows="5" id="rivross_property_' . esc_attr( $key ) . '" name="rivross_property_' . esc_attr( $key ) . '">' . esc_textarea( $value ) . '</textarea>';
 			}
 		} else {
-			if ( 'image' === $key ) {
+			if ( in_array( $key, array( 'image', 'hero_image', 'at_a_glance_image', 'floor_plan' ), true ) ) {
 				echo '<input class="regular-text rivross-media-input" type="url" id="rivross_property_' . esc_attr( $key ) . '" name="rivross_property_' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '"> <button type="button" class="button rivross-media-button" data-target="rivross_property_' . esc_attr( $key ) . '">' . esc_html__( 'Choose / Upload Image', 'rivross-corporate' ) . '</button> <button type="button" class="button rivross-media-clear" data-target="rivross_property_' . esc_attr( $key ) . '">' . esc_html__( 'Clear', 'rivross-corporate' ) . '</button><div class="rivross-media-preview" data-preview-for="rivross_property_' . esc_attr( $key ) . '" style="display:none;max-width:180px;margin-top:8px;"></div>';
 			} else {
 				$number_attrs = 'number' === $field['type'] ? ' min="0" step="any" inputmode="decimal"' : '';
@@ -130,10 +138,10 @@ function rivross_save_property_meta( $post_id ) {
 		if ( 'number' === $field['type'] ) {
 			$value = is_numeric( $raw ) ? max( 0, (float) $raw ) : '';
 			$value = '' !== $value ? (string) $value : '';
-		} elseif ( 'select' === $field['type'] ) {
+			} elseif ( 'select' === $field['type'] ) {
 			$value = in_array( $raw, $field['options'], true ) ? $raw : '';
 		} else {
-			$value = 'url' === $field['type'] ? esc_url_raw( $raw ) : ( 'textarea' === $field['type'] ? ( 'gallery' === $key ? rivross_sanitize_gallery_urls( $raw ) : sanitize_textarea_field( $raw ) ) : sanitize_text_field( $raw ) );
+				$value = 'url' === $field['type'] ? esc_url_raw( $raw ) : ( 'textarea' === $field['type'] ? ( 'gallery' === $key ? rivross_sanitize_gallery_urls( $raw ) : sanitize_textarea_field( $raw ) ) : sanitize_text_field( $raw ) );
 		}
 		if ( '' === $value ) {
 			delete_post_meta( $post_id, '_rivross_property_' . $key );
@@ -197,6 +205,143 @@ function rivross_seed_properties() {
 	update_option( 'rivross_properties_seeded', 1 );
 }
 add_action( 'init', 'rivross_seed_properties', 30 );
+
+/** Read one partner specification from the imported source data. */
+function rivross_partner_fact_value( $facts, $needle, $default = '' ) {
+	foreach ( (array) $facts as $fact ) {
+		$title = isset( $fact['title'] ) ? (string) $fact['title'] : '';
+		if ( false !== stripos( $title, $needle ) ) {
+			return isset( $fact['value'] ) ? (string) $fact['value'] : $default;
+		}
+	}
+	return $default;
+}
+
+/** Prefer the collected theme asset while retaining the partner URL as a fallback. */
+function rivross_partner_local_asset_url( $slug, $filename, $fallback = '' ) {
+	$relative = '/assets/images/real-estate/partner/' . sanitize_title( $slug ) . '/' . sanitize_file_name( $filename );
+	return file_exists( get_template_directory() . $relative ) ? get_theme_file_uri( $relative ) : $fallback;
+}
+
+/** Import the approved Principal Group portfolio into the existing Properties CPT. */
+function rivross_import_partner_properties() {
+	if ( '2' === (string) get_option( 'rivross_partner_properties_imported' ) ) {
+		return;
+	}
+	$data_file = get_template_directory() . '/data/partner-properties.json';
+	if ( ! file_exists( $data_file ) ) {
+		return;
+	}
+	$projects = json_decode( (string) file_get_contents( $data_file ), true );
+	if ( ! is_array( $projects ) || empty( $projects ) ) {
+		return;
+	}
+	$partner_slugs = array();
+	foreach ( $projects as $project ) {
+		$slug = sanitize_title( isset( $project['slug'] ) ? $project['slug'] : '' );
+		$title = sanitize_text_field( isset( $project['title'] ) ? $project['title'] : '' );
+		if ( ! $slug || ! $title ) {
+			continue;
+		}
+		$partner_slugs[] = $slug;
+		$facts = isset( $project['facts'] ) && is_array( $project['facts'] ) ? $project['facts'] : array();
+		$location = sanitize_text_field( isset( $project['location'] ) ? $project['location'] : '' );
+		$status = sanitize_text_field( isset( $project['status'] ) ? $project['status'] : 'Ongoing' );
+		if ( ! in_array( $status, array( 'Ongoing', 'Upcoming', 'Completed', 'Ready', 'Handover' ), true ) ) {
+			$status = 'Ongoing';
+		}
+		$type = ucwords( strtolower( sanitize_text_field( isset( $project['type'] ) ? $project['type'] : 'Commercial' ) ) );
+		$source_image = esc_url_raw( isset( $project['image'] ) ? $project['image'] : '' );
+		$source_hero = esc_url_raw( isset( $project['hero_image'] ) ? $project['hero_image'] : '' );
+		$source_glance = esc_url_raw( isset( $project['at_a_glance_image'] ) ? $project['at_a_glance_image'] : '' );
+		$source_floor_plan = esc_url_raw( isset( $project['floor_plan'] ) ? $project['floor_plan'] : '' );
+		$local_image = rivross_partner_local_asset_url( $slug, 'card.webp', $source_image );
+		$local_hero = rivross_partner_local_asset_url( $slug, 'hero.jpg', $source_hero );
+		$local_glance = rivross_partner_local_asset_url( $slug, 'at-a-glance.jpg', $source_glance );
+		$local_floor_plan = rivross_partner_local_asset_url( $slug, 'floor-plan-01.jpg', $source_floor_plan );
+		$size = rivross_partner_fact_value( $facts, 'Size of Units', 'On request' );
+		$bedrooms = rivross_partner_fact_value( $facts, 'Number Of Bed Room', 'N/A' );
+		$bathrooms = rivross_partner_fact_value( $facts, 'Number Of Toilet', 'N/A' );
+		$parking = rivross_partner_fact_value( $facts, 'Number of Car Parking', 'N/A' );
+		$address = rivross_partner_fact_value( $facts, 'ADDRESS', $location );
+		$excerpt = sprintf( '%s is a %s real-estate development in %s.', $title, $type, $location );
+		$content = sprintf( '%s is a partner project located at %s. The project is currently marked as %s. Property specifications, galleries and source references are maintained in the editable property fields below.', $title, $address, $status );
+		$existing = get_page_by_path( $slug, OBJECT, 'rivross_property' );
+		$post_values = array( 'post_type' => 'rivross_property', 'post_status' => 'publish', 'post_title' => $title, 'post_name' => $slug, 'post_excerpt' => $excerpt, 'post_content' => $content );
+		if ( $existing ) {
+			$post_values['ID'] = $existing->ID;
+			$post_id = wp_update_post( $post_values, true );
+		} else {
+			$post_id = wp_insert_post( $post_values, true );
+		}
+		if ( is_wp_error( $post_id ) || ! $post_id ) {
+			continue;
+		}
+		wp_set_object_terms( $post_id, $type, 'rivross_property_type' );
+		$spec_lines = array();
+		foreach ( $facts as $fact ) {
+			if ( isset( $fact['title'], $fact['value'] ) ) {
+				$spec_lines[] = sanitize_text_field( $fact['title'] ) . '||' . sanitize_text_field( $fact['value'] );
+			}
+		}
+		$amenity_lines = array();
+		foreach ( (array) ( isset( $project['amenities'] ) ? $project['amenities'] : array() ) as $amenity ) {
+			if ( isset( $amenity['title'] ) && $amenity['title'] ) {
+				$amenity_lines[] = sanitize_text_field( $amenity['title'] );
+			}
+		}
+		$gallery = array();
+		$gallery_index = 1;
+		foreach ( (array) ( isset( $project['gallery'] ) ? $project['gallery'] : array() ) as $gallery_item ) {
+			$gallery_item = esc_url_raw( $gallery_item );
+			if ( ! $gallery_item ) { continue; }
+			$extension = pathinfo( (string) parse_url( $gallery_item, PHP_URL_PATH ), PATHINFO_EXTENSION );
+			$extension = $extension ? strtolower( $extension ) : 'jpg';
+			$local_name = 'gallery-' . str_pad( (string) $gallery_index, 2, '0', STR_PAD_LEFT ) . '.' . $extension;
+			$gallery[] = rivross_partner_local_asset_url( $slug, $local_name, $gallery_item );
+			$gallery_index++;
+		}
+		$meta = array(
+			'location' => $location,
+			'developer' => 'Principal Group',
+			'type' => $type,
+			'size' => $size,
+			'bedrooms' => $bedrooms,
+			'bathrooms' => $bathrooms,
+			'parking' => $parking,
+			'status' => $status,
+			'price' => 'Price on request',
+			'price_value' => '0',
+			'handover' => $status,
+			'sort_order' => (string) ( isset( $project['sort_order'] ) ? (int) $project['sort_order'] : 0 ),
+			'image' => $local_image,
+			'hero_image' => $local_hero,
+			'at_a_glance_image' => $local_glance,
+			'floor_plan' => $local_floor_plan,
+			'at_a_glance' => implode( "\n", $spec_lines ),
+			'amenities' => implode( "\n", $amenity_lines ),
+			'gallery' => implode( "\n", $gallery ),
+			'map_url' => esc_url_raw( isset( $project['map_url'] ) ? $project['map_url'] : '' ),
+			'video_url' => esc_url_raw( isset( $project['video_url'] ) ? $project['video_url'] : '' ),
+			'source_url' => esc_url_raw( isset( $project['source_url'] ) ? $project['source_url'] : '' ),
+		);
+		foreach ( $meta as $key => $value ) {
+			if ( '' === $value ) {
+				delete_post_meta( $post_id, '_rivross_property_' . $key );
+			} else {
+				update_post_meta( $post_id, '_rivross_property_' . $key, $value );
+			}
+		}
+	}
+	$legacy_properties = get_posts( array( 'post_type' => 'rivross_property', 'post_status' => 'publish', 'posts_per_page' => -1 ) );
+	foreach ( $legacy_properties as $legacy_property ) {
+		if ( ! in_array( $legacy_property->post_name, $partner_slugs, true ) ) {
+			wp_update_post( array( 'ID' => $legacy_property->ID, 'post_status' => 'draft' ) );
+		}
+	}
+	update_option( 'rivross_partner_properties_imported', '2' );
+}
+add_action( 'init', 'rivross_import_partner_properties', 35 );
 
 function rivross_property_flush_rewrite_rules() {
 	rivross_register_property_content();
